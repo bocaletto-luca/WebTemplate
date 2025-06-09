@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gelateria Artigianale - Il Gusto dell'Estate</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome per le icone -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- Google Fonts: 'Poppins' per titoli e 'Open Sans' per il corpo -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Variabili CSS per personalizzare facilmente la palette dei colori */
+    :root {
+      --primary-color: #FFD700;     /* Oro, richiama l'iridescenza del gelato */
+      --secondary-color: #FF6347;   /* Rosso aranciato fresco e vivace */
+      --accent-color: #F7A072;      /* Tonalità di accento, calda e invitante */
+      --background-color: #FFF8E5;  /* Beige chiaro, estivo e luminoso */
+      --text-color: #333333;
+      --navbar-bg: #FF6347;         /* Navbar solida con tono acceso */
+      --hero-overlay: rgba(0, 0, 0, 0.5);
+      --footer-bg: #333333;
+    }
+    
+    /* Stili generali e tipografia */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    h1, h2, h3, .section-title {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background-color: var(--navbar-bg);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-color) !important;
+      display: flex;
+      align-items: center;
+    }
+    .navbar-brand img {
+      max-height: 50px;
+      margin-right: 0.5rem;
+    }
+    .navbar-nav .nav-link {
+      color: #fff !important;
+      margin: 0 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .navbar-nav .nav-link:hover {
+      color: var(--accent-color) !important;
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?gelato') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--hero-overlay);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .hero-content .btn {
+      background-color: var(--primary-color);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1.1rem;
+      color: var(--text-color);
+    }
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 3rem;
+      }
+      .hero-content p {
+        font-size: 1.2rem;
+      }
+    }
+    
+    /* Section generali */
+    section {
+      padding: 80px 0;
+    }
+    .section-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    /* About Section */
+    #about .about-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+    #about .about-container img {
+      flex: 1;
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    #about .about-text {
+      flex: 1;
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+    }
+    
+    /* I Nostri Gusti (Menu) */
+    #flavors .flavors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .flavor-card {
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .flavor-card:hover {
+      transform: translateY(-5px);
+    }
+    .flavor-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .flavor-card .card-body {
+      padding: 1rem;
+      text-align: center;
+    }
+    .flavor-card .card-body h5 {
+      color: var(--primary-color);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .flavor-card .card-body p {
+      margin: 0;
+      color: var(--text-color);
+    }
+    
+    /* Order Section */
+    #order .order-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #order .form-control {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+    }
+    #order button {
+      background-color: var(--primary-color);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1.1rem;
+      color: var(--text-color);
+    }
+    
+    /* Contact Section */
+    #contact .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    #contact .contact-info i {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-right: 0.5rem;
+    }
+    
+    /* Newsletter */
+    #newsletter .form-control {
+      max-width: 400px;
+      display: inline-block;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: var(--footer-bg);
+      color: #ffffff;
+      text-align: center;
+      padding: 1rem;
+    }
+    .footer a {
+      color: var(--primary-color);
+      margin: 0 0.5rem;
+      font-size: 1.3rem;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="https://via.placeholder.com/150x50?text=Logo+Gelateria" alt="Logo Gelateria">
+        Gelateria Artigianale
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
+              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Chi Siamo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#flavors">Gusti</a></li>
+          <li class="nav-item"><a class="nav-link" href="#order">Ordina</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+          <li class="nav-item"><a class="nav-link" href="#newsletter">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Gelateria Artigianale</h1>
+      <p class="animate__animated animate__fadeInDown animate__delay-1s">Il Gusto Autentico dell'Estate in Ogni Cono</p>
+      <a href="#flavors" class="btn btn-lg animate__animated animate__fadeInDown animate__delay-2s">Scopri i Gusti</a>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about">
+    <div class="section-container">
+      <h2 class="section-title center-align">Chi Siamo</h2>
+      <div class="about-container">
+        <div>
+          <img src="https://source.unsplash.com/600x400/?gelato,artisan" alt="Il nostro laboratorio">
+        </div>
+        <div class="about-text">
+          <p>
+            La nostra gelateria nasce dalla passione per l'artigianalità e per il vero gusto. Utilizziamo ingredienti selezionati e metodi tradizionali per creare gelati unici, che celebrano il sapore autentico dell'estate.
+          </p>
+          <p>
+            Ogni prodotto è il risultato di cura e dedizione, per offrire un’esperienza indimenticabile in ogni morso.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Flavors Section -->
+  <section id="flavors">
+    <div class="section-container">
+      <h2 class="section-title center-align">I Nostri Gusti</h2>
+      <div class="flavors-grid">
+        <!-- Flavor Card: Fragola -->
+        <div class="flavor-card">
+          <img src="https://source.unsplash.com/featured/400x300/?strawberry,icecream" alt="Gusto Fragola">
+          <div class="card-body">
+            <h5>Fragola</h5>
+            <p>Fresco e naturale, sapore estivo garantito.</p>
+          </div>
+        </div>
+        <!-- Flavor Card: Cioccolato -->
+        <div class="flavor-card">
+          <img src="https://source.unsplash.com/featured/400x300/?chocolate,icecream" alt="Gusto Cioccolato">
+          <div class="card-body">
+            <h5>Cioccolato</h5>
+            <p>Intenso, cremoso e decadente.</p>
+          </div>
+        </div>
+        <!-- Flavor Card: Pistacchio -->
+        <div class="flavor-card">
+          <img src="https://source.unsplash.com/featured/400x300/?pistachio,icecream" alt="Gusto Pistacchio">
+          <div class="card-body">
+            <h5>Pistacchio</h5>
+            <p>Ricco e autentico, un classico imperdibile.</p>
+          </div>
+        </div>
+        <!-- Flavor Card: Vaniglia -->
+        <div class="flavor-card">
+          <img src="https://source.unsplash.com/featured/400x300/?vanilla,icecream" alt="Gusto Vaniglia">
+          <div class="card-body">
+            <h5>Vaniglia</h5>
+            <p>Delicato e irresistibile.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Order Section -->
+  <section id="order">
+    <div class="section-container">
+      <h2 class="section-title center-align">Ordina Online</h2>
+      <div class="order-container">
+        <form>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="orderName" placeholder="Il tuo nome" required>
+          </div>
+          <div class="mb-3">
+            <input type="email" class="form-control" id="orderEmail" placeholder="nome@esempio.com" required>
+          </div>
+          <div class="mb-3">
+            <textarea class="form-control" id="orderDetails" rows="4" placeholder="Dettagli ordine (es. Cono di fragola extra panna)" required></textarea>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-lg" type="submit">Invia Ordine</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="section-container">
+      <h2 class="section-title center-align">Contatti</h2>
+      <div class="contact-info">
+        <p><i class="fas fa-map-marker-alt"></i> Via del Gusto, 10 - Roma</p>
+        <p><i class="fas fa-phone"></i> +39 06 1234567</p>
+        <p><i class="fas fa-envelope"></i> info@gelateriartigianale.it</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter">
+    <div class="section-container">
+      <h2 class="section-title center-align">Newsletter</h2>
+      <p class="center-align">Iscriviti per ricevere novità e promozioni esclusive!</p>
+      <div class="text-center">
+        <input type="email" class="form-control" placeholder="nome@esempio.com" style="max-width:400px; margin:auto;" required>
+        <button class="btn btn-lg mt-3">Iscriviti</button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Gelateria Artigianale - Il Gusto dell'Estate | By Bocaletto Luca</p>
+      <p>
+        Seguici:
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
