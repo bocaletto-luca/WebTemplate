@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Osteria Rustica - La Tradizione in Tavola</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome per le icone -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- Animate.css per animazioni opzionali -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- Google Fonts: utilizziamo 'Roboto' per titoli e 'Open Sans' per il corpo del testo -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Variabili CSS per la personalizzazione rapida dei colori */
+    :root {
+      --primary-color: #8B0000;        /* Rosso profondo, richiamo al vino */
+      --secondary-color: #4D2C1F;      /* Marrone caldo, evocativo del legno */
+      --accent-color: #D2B48C;         /* Tonalità sabbia/tan, per accenti ed evidenziazioni */
+      --background-color: #F5F5DC;     /* Crema, caldo e accogliente */
+      --text-color: #333333;
+      --navbar-bg: #4D2C1F;
+      --hero-overlay: rgba(0, 0, 0, 0.55);
+      --form-bg: #ffffff;
+      --footer-bg: #4D2C1F;
+    }
+
+    /* Stili globali */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--navbar-bg);
+      padding: 1rem 2rem;
+    }
+    .navbar-brand {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--accent-color) !important;
+    }
+    .navbar-nav .nav-link {
+      color: var(--background-color) !important;
+      margin: 0 0.8rem;
+      font-weight: 600;
+    }
+    .navbar-nav .nav-link:hover {
+      color: var(--accent-color) !important;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100vh;
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--hero-overlay);
+      z-index: 1;
+    }
+    .hero .hero-left {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 5rem;
+      animation: fadeInLeft 1s;
+    }
+    .hero .hero-left h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 4rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    .hero .hero-left p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .hero .hero-left .btn {
+      background-color: var(--primary-color);
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    .hero .hero-right {
+      background: url('https://source.unsplash.com/1600x900/?osteria,tradition') no-repeat center center;
+      background-size: cover;
+    }
+    @media(max-width:768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .hero .hero-left {
+        padding: 2rem;
+        text-align: center;
+      }
+      .hero .hero-right {
+        display: none;
+      }
+    }
+
+    /* Sezione "Chi Siamo" */
+    #about {
+      padding: 80px 20px;
+      background-color: var(--background-color);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .about-grid img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .about-text {
+      font-size: 1.2rem;
+    }
+    @media(max-width:768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sezione Menù */
+    #menu {
+      padding: 80px 20px;
+      background-color: #ffffff;
+    }
+    .section-title {
+      text-align: center;
+      margin: 60px 0 30px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .menu-item {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .menu-item:hover {
+      transform: translateY(-5px);
+    }
+    .menu-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .item-content {
+      padding: 15px;
+      text-align: center;
+    }
+    .item-content h5 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    @media(max-width:768px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sezione Prenotazioni & Ordini */
+    #reservation, #order {
+      padding: 80px 20px;
+      background-color: var(--background-color);
+    }
+    .form-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .form-card {
+      background-color: var(--form-bg);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    @media(max-width:768px) {
+      .form-section {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sezione Testimonianze */
+    #testimonials {
+      padding: 80px 20px;
+      background-color: #f0f0f0;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .testimonial-item {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-style: italic;
+    }
+    .testimonial-item cite {
+      display: block;
+      margin-top: 10px;
+      color: var(--text-color);
+      font-size: 0.9rem;
+    }
+    @media(max-width:768px) {
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sezione Contatti */
+    #contact {
+      padding: 80px 20px;
+      background-color: #ffffff;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+    .contact-grid i {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+    @media(max-width:768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sezione Newsletter */
+    #newsletter {
+      padding: 80px 20px;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+    #newsletter .form-control {
+      max-width: 400px;
+      display: inline-block;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--footer-bg);
+      color: #bdc3c7;
+      text-align: center;
+      padding: 20px;
+    }
+    .footer a {
+      color: var(--primary-color);
+      margin: 0 10px;
+      font-size: 1.3rem;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animazione personalizzata per la Hero */
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Ristorante Pesce & Mare</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPesce">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarPesce">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Chi Siamo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu">Menù</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reservation">Prenota</a></li>
+          <li class="nav-item"><a class="nav-link" href="#order">Ordina</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonianze</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+          <li class="nav-item"><a class="nav-link" href="#newsletter">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="hero" class="hero">
+    <div class="hero-left">
+      <h1 class="animate__animated animate__fadeInLeft">Ristorante Pesce & Mare</h1>
+      <p class="animate__animated animate__fadeInLeft animate__delay-1s">Freschezza e sapori autentici del mare</p>
+      <a href="#menu" class="btn btn-custom animate__animated animate__fadeInLeft animate__delay-2s">Scopri il Menù</a>
+    </div>
+    <div class="hero-right"></div>
+  </header>
+  
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">Chi Siamo</h2>
+      <div class="about-grid">
+        <div>
+          <img src="https://source.unsplash.com/600x400/?osteria,tradition" alt="Il nostro ambiente" class="about-img">
+        </div>
+        <div class="about-text">
+          <p>
+            Benvenuti alla nostra Osteria, dove la tradizione si unisce a un'atmosfera familiare e accogliente. Offriamo piatti genuini, preparati con ingredienti freschi e ricette tramandate da generazioni.
+          </p>
+          <p>
+            Qui ogni pasto diventa un momento di convivialità, in un ambiente caldo ed autentico, dove il buon cibo è celebrato come arte.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Menu Section -->
+  <section id="menu">
+    <div class="container">
+      <h2 class="section-title">Il Nostro Menù</h2>
+      <div class="menu-grid">
+        <!-- Menu Item 1: Antipasti di Mare -->
+        <div class="menu-item">
+          <img src="https://source.unsplash.com/featured/400x300/?seafood,appetizer" alt="Antipasti di Mare">
+          <div class="item-content">
+            <h5>Antipasti di Mare</h5>
+            <p>Una selezione di pesce crudo e marinato, con un tocco di limone.</p>
+            <p class="fw-bold">€14,00</p>
+          </div>
+        </div>
+        <!-- Menu Item 2: Spaghetti alle Vongole -->
+        <div class="menu-item">
+          <img src="https://source.unsplash.com/featured/400x300/?pasta,clam" alt="Spaghetti alle Vongole">
+          <div class="item-content">
+            <h5>Spaghetti alle Vongole</h5>
+            <p>Spaghetti con vongole fresche, aglio, prezzemolo e un filo d'olio d'oliva.</p>
+            <p class="fw-bold">€18,00</p>
+          </div>
+        </div>
+        <!-- Menu Item 3: Branzino al Forno -->
+        <div class="menu-item">
+          <img src="https://source.unsplash.com/featured/400x300/?fish,oven" alt="Branzino al Forno">
+          <div class="item-content">
+            <h5>Branzino al Forno</h5>
+            <p>Branzino fresco, cotto al forno con erbe aromatiche e contorni di verdure.</p>
+            <p class="fw-bold">€22,00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Reservation & Order Section -->
+  <section id="reservation">
+    <div class="container">
+      <h2 class="section-title text-center">Prenota & Ordina</h2>
+      <div class="form-section">
+        <!-- Reservation Form -->
+        <div class="form-card">
+          <h4 class="mb-3">Prenota un Tavolo</h4>
+          <form>
+            <div class="mb-3">
+              <label for="resName" class="form-label">Il tuo nome</label>
+              <input type="text" class="form-control" id="resName" placeholder="Inserisci il tuo nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="resEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="resEmail" placeholder="nome@esempio.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="resDate" class="form-label">Data</label>
+              <input type="date" class="form-control" id="resDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="resTime" class="form-label">Orario</label>
+              <input type="time" class="form-control" id="resTime" required>
+            </div>
+            <div class="mb-3">
+              <label for="resGuests" class="form-label">Numero di Persone</label>
+              <input type="number" class="form-control" id="resGuests" placeholder="Inserisci il numero di persone" required>
+            </div>
+            <button type="submit" class="btn btn-custom btn-lg w-100">Prenota Ora</button>
+          </form>
+        </div>
+        <!-- Order Form -->
+        <div class="form-card">
+          <h4 class="mb-3">Ordina Online</h4>
+          <form>
+            <div class="mb-3">
+              <label for="orderName" class="form-label">Il tuo nome</label>
+              <input type="text" class="form-control" id="orderName" placeholder="Inserisci il tuo nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="orderEmail" placeholder="nome@esempio.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderDetails" class="form-label">Dettagli Ordine</label>
+              <textarea class="form-control" id="orderDetails" rows="4" placeholder="Descrivi il tuo ordine" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-custom btn-lg w-100">Invia Ordine</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials Section -->
+  <section id="testimonials">
+    <div class="container">
+      <h2 class="section-title text-center">Testimonianze</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-item">
+          <p>"Un’esperienza unica: pesce fresco e preparazioni che esaltano il sapore del mare."</p>
+          <cite>— Giulia M.</cite>
+        </div>
+        <div class="testimonial-item">
+          <p>"Ambiente accogliente e un servizio impeccabile. La scelta perfetta per chi ama il pesce."</p>
+          <cite>— Alberto R.</cite>
+        </div>
+        <div class="testimonial-item">
+          <p>"La qualità e la freschezza dei piatti sono impareggiabili. Un vero gioiello culinario!"</p>
+          <cite>— Sofia P.</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title text-center">Contatti</h2>
+      <div class="contact-grid">
+        <div class="contact-item text-center">
+          <i class="fas fa-map-marker-alt"></i>
+          <p>Via del Mare, 45 - Napoli</p>
+        </div>
+        <div class="contact-item text-center">
+          <i class="fas fa-phone"></i>
+          <p>+39 081 1234567</p>
+        </div>
+        <div class="contact-item text-center">
+          <i class="fas fa-envelope"></i>
+          <p>info@ristorantepesce.it</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter">
+    <div class="container">
+      <h2 class="section-title text-center">Iscriviti alla Newsletter</h2>
+      <form>
+        <input type="email" class="form-control" placeholder="nome@esempio.com" required>
+        <button type="submit" class="btn btn-custom mt-3">Iscriviti</button>
+      </form>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Ristorante Pesce & Mare - L'Onda del Gusto</p>
+    <p>
+      Seguici:
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </p>
+  </footer>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Cambio background della navbar quando si scrolla
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

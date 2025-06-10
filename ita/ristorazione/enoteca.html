@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enoteca Eleganza - Il Vino che Unisce</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome per le icone -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- Google Fonts: Playfair Display per i titoli, Open Sans per il corpo -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Variabili CSS per una rapida personalizzazione della palette */
+    :root {
+      --primary-color: #8B0000;       /* Rosso vino profondo */
+      --accent-color: #C99E10;        /* Accento dorato per contrasto */
+      --background-color: #F7F1E1;      /* Tonalità avorio, caldo e invitante */
+      --text-color: #3A3A3A;
+      --navbar-bg: #3A2D2D;           /* un marrone-nero elegante */
+      --hero-overlay: rgba(0, 0, 0, 0.55);
+      --form-bg: #ffffff;
+      --footer-bg: #3A2D2D;
+    }
+
+    /* Impostazioni globali e tipografia */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    h1, h2, h3, .section-title {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    /* Navbar – design elegante con logo */
+    .navbar {
+      background-color: var(--navbar-bg);
+      padding: 1rem 2rem;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--accent-color) !important;
+      /* Logo simulato integrato con un'immagine */
+    }
+    .navbar-brand img {
+      max-height: 50px;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+    .navbar-nav .nav-link {
+      color: var(--background-color) !important;
+      margin: 0 0.8rem;
+      font-weight: 600;
+    }
+    .navbar-nav .nav-link:hover {
+      color: var(--accent-color) !important;
+    }
+    
+    /* Hero Section – layout a due colonne con sfondo a immagine e overlay */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100vh;
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--hero-overlay);
+      z-index: 1;
+    }
+    .hero .hero-left {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 5rem;
+      animation: fadeInLeft 1s;
+    }
+    .hero .hero-left h1 {
+      font-size: 4rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    .hero .hero-left p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .hero .hero-left .btn {
+      background-color: var(--primary-color);
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    .hero .hero-right {
+      background: url('https://source.unsplash.com/1600x900/?wine,cellar') no-repeat center center;
+      background-size: cover;
+    }
+    @media(max-width:768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .hero .hero-left {
+        padding: 2rem;
+        text-align: center;
+      }
+      .hero .hero-right {
+        display: none;
+      }
+    }
+    
+    /* Sezione Chi Siamo – layout a due colonne invertite per maggiore variegato */
+    #about {
+      padding: 80px 20px;
+      background-color: var(--background-color);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .about-grid img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .about-text {
+      font-size: 1.2rem;
+      padding: 1rem;
+    }
+    @media(max-width:768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sezione Vini – presentazione con griglia*/
+    #vini {
+      padding: 80px 20px;
+      background-color: #ffffff;
+    }
+    .vini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .vino-item {
+      background-color: #fdfdfd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .vino-item:hover {
+      transform: translateY(-5px);
+    }
+    .vino-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .vino-content {
+      padding: 15px;
+      text-align: center;
+    }
+    .vino-content h5 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .vino-content p {
+      margin-bottom: 5px;
+    }
+    @media(max-width:768px) {
+      .vini-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sezione Eventi (opzionale) – layout a carosello o elenco semplice */
+    #eventi {
+      padding: 80px 20px;
+      background-color: #FAF3E0;
+    }
+    .evento {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .evento h5 {
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+    .evento p {
+      margin: 0;
+    }
+    
+    /* Sezione Contatti */
+    #contact {
+      padding: 80px 20px;
+      background-color: #ffffff;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+    .contact-grid i {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+    @media(max-width:768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Sezione Newsletter */
+    #newsletter {
+      padding: 80px 20px;
+      background-color: #ffffff;
+      text-align: center;
+    }
+    #newsletter .form-control {
+      max-width: 400px;
+      display: inline-block;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--footer-bg);
+      color: #bdc3c7;
+      text-align: center;
+      padding: 20px;
+    }
+    .footer a {
+      color: var(--primary-color);
+      margin: 0 10px;
+      font-size: 1.3rem;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animazione personalizzata per la Hero */
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="https://via.placeholder.com/150x50?text=Enoteca+Logo" alt="Enoteca Eleganza Logo">
+        Enoteca Eleganza
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEnoteca">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarEnoteca">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Chi Siamo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#vini">Vini</a></li>
+          <li class="nav-item"><a class="nav-link" href="#eventi">Eventi</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+          <li class="nav-item"><a class="nav-link" href="#newsletter">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="hero" class="hero">
+    <div class="hero-left">
+      <h1 class="animate__animated animate__fadeInLeft">Enoteca Eleganza</h1>
+      <p class="animate__animated animate__fadeInLeft animate__delay-1s">Il vino che unisce, la tradizione che incanta</p>
+      <a href="#vini" class="btn btn-custom animate__animated animate__fadeInLeft animate__delay-2s">Scopri la Selezione</a>
+    </div>
+    <div class="hero-right"></div>
+  </header>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">Chi Siamo</h2>
+      <div class="about-grid">
+        <div>
+          <img src="https://source.unsplash.com/600x400/?wine,bar" alt="Il nostro enoteca" class="about-img">
+        </div>
+        <div class="about-text">
+          <p>
+            Enoteca Eleganza nasce per celebrare la passione per il vino e l'arte dell'accoglienza. Con una selezione curata di etichette pregiate e una decora raffinata, offriamo un ambiente dove il buon bere diventa esperienza.
+          </p>
+          <p>
+            La nostra filosofia si basa sulla qualità, l’eccellenza e la tradizione, rinnovate attraverso un’attenzione maniacale ai dettagli e alle eccellenze enologiche.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vini Selezionati Section -->
+  <section id="vini">
+    <div class="container">
+      <h2 class="section-title">La Nostra Selezione</h2>
+      <div class="vini-grid menu-grid">
+        <!-- Wine Card 1 -->
+        <div class="vino-item">
+          <img src="https://source.unsplash.com/featured/400x300/?wine,red" alt="Vino Rosso">
+          <div class="vino-content">
+            <h5>Vino Rosso</h5>
+            <p>Corposo e avvolgente, ideale per ogni occasione.</p>
+            <p class="fw-bold">€25,00</p>
+          </div>
+        </div>
+        <!-- Wine Card 2 -->
+        <div class="vino-item">
+          <img src="https://source.unsplash.com/featured/400x300/?wine,white" alt="Vino Bianco">
+          <div class="vino-content">
+            <h5>Vino Bianco</h5>
+            <p>Fresco e fruttato, per momenti di leggerezza.</p>
+            <p class="fw-bold">€20,00</p>
+          </div>
+        </div>
+        <!-- Wine Card 3 -->
+        <div class="vino-item">
+          <img src="https://source.unsplash.com/featured/400x300/?wine,rose" alt="Vino Rosato">
+          <div class="vino-content">
+            <h5>Vino Rosato</h5>
+            <p>Equilibrato e armonico, un tocco di classe.</p>
+            <p class="fw-bold">€22,00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Eventi Section -->
+  <section id="eventi">
+    <div class="container">
+      <h2 class="section-title">Eventi</h2>
+      <div class="row">
+        <div class="col-md-6 evento">
+          <h5>Degustazione di Vini</h5>
+          <p>Unisciti a noi per una serata di degustazione con sommelier esperti.</p>
+          <p><strong>Data:</strong> 25/09/2025</p>
+        </div>
+        <div class="col-md-6 evento">
+          <h5>Serata a Tema</h5>
+          <p>Racconti e aneddoti sul vino, accompagnati da abbinamenti speciali.</p>
+          <p><strong>Data:</strong> 10/10/2025</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Contatti</h2>
+      <div class="contact-grid">
+        <div class="contact-item text-center">
+          <i class="fas fa-map-marker-alt"></i>
+          <p>Via del Vino, 25 - Firenze</p>
+        </div>
+        <div class="contact-item text-center">
+          <i class="fas fa-phone"></i>
+          <p>+39 055 1234567</p>
+        </div>
+        <div class="contact-item text-center">
+          <i class="fas fa-envelope"></i>
+          <p>info@enotecaeleganza.it</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter">
+    <div class="container">
+      <h2 class="section-title">Newsletter</h2>
+      <p>Ricevi aggiornamenti sulle novità e gli eventi d'eccellenza.</p>
+      <form>
+        <input type="email" class="form-control" placeholder="nome@esempio.com" required>
+        <button type="submit" class="btn btn-custom mt-3">Iscriviti</button>
+      </form>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Enoteca Eleganza - Il Vino che Unisce</p>
+    <p>
+      Seguici:
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </p>
+  </footer>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar background change on scroll
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
