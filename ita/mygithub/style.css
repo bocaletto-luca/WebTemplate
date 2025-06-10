@@ -1,0 +1,194 @@
+:root {
+      --primary-color: #FF7F00;   /* Neon arancione */
+      --dark-bg: #111;            /* Sfondo scuro */
+      --light-text: #EEE;
+      --font-title: 'Orbitron', sans-serif;
+    }
+    /* Reset e stili di base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      font-family: var(--font-title);
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: var(--primary-color); }
+    
+    /* Header / Navbar */
+    header {
+      position: static;
+      top: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.9);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid var(--primary-color);
+      z-index: 1000;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .nav-left img { height: 50px; }
+    .nav-left .logo-text {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    .nav-right ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    
+    @media (max-width: 768px) {
+		
+		    /* Header / Navbar */
+		
+
+      .nav-right ul {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+
+      }
+      .nav-right ul li { text-align: center; }
+    }
+    .nav-right a {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--light-text);
+      transition: color 0.3s;
+    }
+    .nav-right a:hover { color: var(--primary-color); }
+    
+        }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    /* Main Content */
+    main {
+      margin-top: 100px; /* per lasciare spazio all'header fisso */
+      padding: 0 1rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .page-header h1 {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+    }
+    .page-header p { font-size: 1.2rem; }
+    
+    /* Loader */
+    .loader {
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.5rem;
+    }
+    
+    /* Stile dei Tab – usiamo il markup standard di Bootstrap */
+    .nav-tabs {
+      margin-bottom: 2rem;
+    }
+    
+    /* Layout per le Repository Cards */
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .repo-card {
+      flex: 1 1 calc(33.33% - 1rem);
+      min-width: 250px;
+    }
+.repo-card .card {
+  height: 540px; /* Altezza aumentata da 320px a 400px */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--primary-color);
+  background: #1a1a1a;
+  color: var(--light-text);
+}
+
+    .repo-card .card-body {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      padding: 1rem;
+    }
+    .repo-card .card-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.5rem;
+    }
+    .repo-card .card-text {
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .repo-card .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    .repo-card .btn {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.5rem;
+      background: var(--primary-color);
+      border: none;
+      color: #111;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .repo-card .btn:hover { background: #e67e22; }
+    
+    /* Pagination Controls */
+    .pagination-controls {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .pagination-controls button {
+      margin: 0 5px;
+      padding: 0.5rem 1rem;
+      background: var(--primary-color);
+      color: #111;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .pagination-controls button:disabled {
+      background: #444;
+      cursor: not-allowed;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark-bg);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-top: 2px solid var(--primary-color);
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
