@@ -1,7 +1,5 @@
 # WebTamplate
 
-![WebTamplate Banner](https://via.placeholder.com/1200x300?text=WebTamplate+-+Open+Source+Web+Templates)
-
 Welcome to **WebTamplate** – a curated collection of open source web templates designed to jumpstart your projects! Whether you're building modern websites, landing pages, or creative portfolios, you'll find a variety of templates to suit your needs.
 
 ---
