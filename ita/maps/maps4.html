@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sala Controllo di Ricerca Professionale – OpenStreetMap</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* Imposta l'altezza della mappa per occupare l'intera viewport */
+    #map {
+      height: 100vh;
+    }
+    /* Sidebar: limite di altezza e scroll verticale */
+    #controlPanel {
+      max-height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar di controllo -->
+      <div class="col-md-3 p-0" id="controlPanel">
+        <div class="card m-3">
+          <div class="card-header bg-primary text-white">
+            Sala di Controllo di Ricerca
+          </div>
+          <div class="card-body">
+            <!-- Div per messaggi di errore -->
+            <div id="errorMsg" class="alert alert-danger" style="display:none;"></div>
+            
+            <!-- Form per ricerca indirizzo -->
+            <form id="searchForm">
+              <div class="mb-3">
+                <label for="addressInput" class="form-label">Ricerca Indirizzo</label>
+                <input type="text" class="form-control" id="addressInput" placeholder="Inserisci indirizzo o luogo">
+              </div>
+              <button type="button" class="btn btn-primary w-100 mb-3" id="addressSearchBtn" onclick="searchAddress()">Cerca Indirizzo</button>
+            </form>
+            <hr>
+            <!-- Form per ricerca per categoria -->
+            <div>
+              <label for="categorySelect" class="form-label">Ricerca per Categoria</label>
+              <select class="form-select" id="categorySelect">
+                <option value="">Seleziona categoria</option>
+                <option value="restaurant">Ristorante</option>
+                <option value="hotel">Hotel</option>
+                <option value="museum">Museo</option>
+                <option value="park">Parco</option>
+                <option value="cafe">Caffè</option>
+                <option value="bank">Banca</option>
+                <option value="hospital">Ospedale</option>
+                <option value="school">Scuola</option>
+                <option value="pharmacy">Farmacia</option>
+                <!-- Aggiungi altre categorie qui -->
+              </select>
+              <div class="mb-3 mt-2">
+                <label for="radiusInput" class="form-label">Raggio di Ricerca (metri)</label>
+                <input type="number" class="form-control" id="radiusInput" placeholder="Es: 1000" value="1000">
+              </div>
+              <button type="button" class="btn btn-secondary w-100" id="categorySearchBtn" onclick="searchCategory()">Cerca Categoria</button>
+            </div>
+            <hr>
+            <!-- Sezione risultati -->
+            <div id="results">
+              <h5>Risultati</h5>
+              <ul class="list-group" id="resultsList"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Visualizzazione della mappa -->
+      <div class="col-md-9 p-0">
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Inizializza la mappa centrata su Roma
+    var map = L.map('map').setView([41.9028, 12.4964], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Layer per i marker della ricerca per categoria
+    var markersLayer = L.layerGroup().addTo(map);
+    // Marker per la ricerca indirizzo
+    var popupMarker;
+
+    // Mapping da valori select a tag OSM
+    const categoryMapping = {
+      restaurant: { key: "amenity", value: "restaurant" },
+      hotel:      { key: "tourism", value: "hotel" },
+      museum:     { key: "tourism", value: "museum" },
+      park:       { key: "leisure", value: "park" },
+      cafe:       { key: "amenity", value: "cafe" },
+      bank:       { key: "amenity", value: "bank" },
+      hospital:   { key: "amenity", value: "hospital" },
+      school:     { key: "amenity", value: "school" },
+      pharmacy:   { key: "amenity", value: "pharmacy" }
+    };
+
+    // Mostra un messaggio di errore nel div dedicato
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMsg');
+      errorDiv.innerText = message;
+      errorDiv.style.display = 'block';
+    }
+
+    // Nasconde il messaggio di errore
+    function clearError() {
+      const errorDiv = document.getElementById('errorMsg');
+      errorDiv.innerText = '';
+      errorDiv.style.display = 'none';
+    }
+
+    // Svuota la lista dei risultati
+    function clearResults() {
+      document.getElementById('resultsList').innerHTML = '';
+    }
+
+    // Aggiunge un elemento cliccabile nella lista dei risultati
+    function addResultItem(item, lat, lon) {
+      const li = document.createElement('li');
+      li.className = "list-group-item list-group-item-action";
+      li.innerText = item;
+      li.style.cursor = 'pointer';
+      li.onclick = function() {
+        map.setView([lat, lon], 16);
+      };
+      document.getElementById('resultsList').appendChild(li);
+    }
+
+    // Ricerca per indirizzo con Nominatim
+    async function searchAddress() {
+      clearError();
+      clearResults();
+      const address = document.getElementById('addressInput').value;
+      if (!address.trim()) {
+        showError("Inserisci un indirizzo!");
+        return;
+      }
+      const addressBtn = document.getElementById('addressSearchBtn');
+      addressBtn.disabled = true;
+      addressBtn.innerHTML = 'Cercando...';
+      
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Errore del server: ${response.status}`);
+        }
+        const data = await response.json();
+        if (data && data.length > 0) {
+          const result = data[0]; // Usa il primo risultato
+          const lat = parseFloat(result.lat);
+          const lon = parseFloat(result.lon);
+          if (popupMarker) {
+            map.removeLayer(popupMarker);
+          }
+          popupMarker = L.marker([lat, lon]).addTo(map)
+            .bindPopup(`<strong>${result.display_name}</strong>`).openPopup();
+          map.setView([lat, lon], 16);
+          addResultItem(result.display_name, lat, lon);
+        } else {
+          showError("Nessun risultato trovato per l'indirizzo indicato.");
+        }
+      } catch (error) {
+        console.error("Errore nella ricerca dell'indirizzo:", error);
+        showError("Errore durante la ricerca. Riprova più tardi.");
+      } finally {
+        addressBtn.disabled = false;
+        addressBtn.innerHTML = 'Cerca Indirizzo';
+      }
+    }
+
+    // Ricerca per categoria tramite Overpass API
+    async function searchCategory() {
+      clearError();
+      clearResults();
+      // Rimuovo i marker precedenti
+      markersLayer.clearLayers();
+      
+      const categoryValue = document.getElementById('categorySelect').value;
+      const radius = parseInt(document.getElementById('radiusInput').value);
+      if (!categoryValue) {
+        showError("Seleziona una categoria.");
+        return;
+      }
+      if (isNaN(radius) || radius <= 0) {
+        showError("Inserisci un raggio valido in metri.");
+        return;
+      }
+      
+      const categoryBtn = document.getElementById('categorySearchBtn');
+      categoryBtn.disabled = true;
+      categoryBtn.innerHTML = 'Cercando...';
+      
+      const mapping = categoryMapping[categoryValue];
+      if (!mapping) {
+        showError("Categoria non supportata.");
+        categoryBtn.disabled = false;
+        categoryBtn.innerHTML = 'Cerca Categoria';
+        return;
+      }
+      
+      const center = map.getCenter();
+      // Costruiamo la query Overpass per nodi, vie e relazioni
+      const query = `[out:json][timeout:25];
+        (
+          node["${mapping.key}"="${mapping.value}"](around:${radius},${center.lat},${center.lng});
+          way["${mapping.key}"="${mapping.value}"](around:${radius},${center.lat},${center.lng});
+          relation["${mapping.key}"="${mapping.value}"](around:${radius},${center.lat},${center.lng});
+        );
+        out center;`;
+      
+      const url = "https://overpass-api.de/api/interpreter?data=" + encodeURIComponent(query);
+      
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Errore del server: ${response.status}`);
+        }
+        const data = await response.json();
+        if (data.elements && data.elements.length > 0) {
+          let boundsArray = [];
+          data.elements.forEach(element => {
+            let lat, lon;
+            if (element.type === "node") {
+              lat = element.lat;
+              lon = element.lon;
+            } else if (element.center) {
+              lat = element.center.lat;
+              lon = element.center.lon;
+            }
+            if (lat && lon) {
+              const name = (element.tags && element.tags.name)
+                  ? element.tags.name
+                  : `${mapping.value} (Senza nome)`;
+              const marker = L.marker([lat, lon]).bindPopup(`<strong>${name}</strong>`);
+              markersLayer.addLayer(marker);
+              addResultItem(name, lat, lon);
+              boundsArray.push([lat, lon]);
+            }
+          });
+          if (boundsArray.length > 0) {
+            map.fitBounds(boundsArray, { padding: [50, 50] });
+          } else {
+            showError("Nessun punto trovato per la categoria selezionata.");
+          }
+        } else {
+          showError("Nessun punto trovato per la categoria selezionata.");
+        }
+      } catch (error) {
+        console.error("Errore nella ricerca per categoria:", error);
+        showError("Errore durante la ricerca per categoria. Riprova più tardi.");
+      } finally {
+        categoryBtn.disabled = false;
+        categoryBtn.innerHTML = 'Cerca Categoria';
+      }
+    }
+  </script>
+</body>
+</html>

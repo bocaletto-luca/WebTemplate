@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ricerca Dati Città - Open Data (Migliorato)</title>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      background: #f7f7f7;
+    }
+    .card {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-4 mb-4 text-center">Scheda Tecnica della Città</h1>
+    <!-- Form di ricerca -->
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <form id="cityForm">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="cityInput"
+              placeholder="Inserisci il nome della città"
+              aria-label="Nome della città"
+              required
+            />
+            <button class="btn btn-primary" type="submit" id="searchBtn">
+              Cerca
+            </button>
+          </div>
+        </form>
+        <!-- Visualizzazione errori -->
+        <div id="errorMsg" class="alert alert-danger" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- Scheda risultati -->
+    <div class="row" id="resultSection" style="display:none;">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">Dettagli della Città</div>
+          <div class="card-body" id="resultContent">
+            <!-- I dati verranno inseriti qui -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    // Funzione per individuare l'indice più vicino a un orario target in un array di orari
+    function findClosestIndex(timeArray, targetTime) {
+      const targetDate = new Date(targetTime);
+      let closestIndex = 0;
+      let minDiff = Infinity;
+      for (let i = 0; i < timeArray.length; i++) {
+        const diff = Math.abs(new Date(timeArray[i]) - targetDate);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIndex = i;
+        }
+      }
+      return closestIndex;
+    }
+
+    document.getElementById("cityForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+      // Nascondi eventuali errori e risultati precedenti
+      document.getElementById("errorMsg").style.display = "none";
+      document.getElementById("resultSection").style.display = "none";
+      document.getElementById("resultContent").innerHTML = "";
+      const searchBtn = document.getElementById("searchBtn");
+      searchBtn.disabled = true;
+      searchBtn.textContent = "Cercando...";
+      
+      const cityName = document.getElementById("cityInput").value.trim();
+      if (!cityName) {
+        showError("Inserisci il nome di una città.");
+        searchBtn.disabled = false;
+        searchBtn.textContent = "Cerca";
+        return;
+      }
+      
+      try {
+        // 1. Ottieni i dettagli della città tramite Nominatim
+        const nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=1&q=${encodeURIComponent(cityName)}`;
+        const nomResponse = await fetch(nominatimUrl);
+        if (!nomResponse.ok) {
+          throw new Error("Errore durante il recupero dei dati della città.");
+        }
+        const nomData = await nomResponse.json();
+        if (nomData.length === 0) {
+          throw new Error("Città non trovata.");
+        }
+          
+        const cityData = nomData[0];
+        const lat = parseFloat(cityData.lat);
+        const lon = parseFloat(cityData.lon);
+        const address = cityData.address;
+        // Dati estratti da Nominatim
+        const displayName = cityData.display_name;
+        const cityDisplayName = address.city || address.town || address.village || address.hamlet || cityName;
+        const province = address.county || "";
+        const state = address.state || "";
+        const country = address.country || "";
+        const postcode = address.postcode || "";
+        // Ottieni il codice paese (ISO alfa-2) se presente
+        const countryCode = address.country_code ? address.country_code.toUpperCase() : "";
+        
+        // 2. Ottieni meteo e umidità attuali da Open‑Meteo
+        const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=relativehumidity_2m&timezone=auto`;
+        const weatherResponse = await fetch(weatherUrl);
+        if (!weatherResponse.ok) {
+          throw new Error("Errore durante il recupero dei dati meteo.");
+        }
+        const weatherData = await weatherResponse.json();
+        const currentWeather = weatherData.current_weather;
+        let humidity = "Non disponibile";
+        if (
+          weatherData.hourly &&
+          weatherData.hourly.time &&
+          weatherData.hourly.relativehumidity_2m
+        ) {
+          const index = findClosestIndex(weatherData.hourly.time, currentWeather.time);
+          if (index !== -1) {
+            humidity = weatherData.hourly.relativehumidity_2m[index] + " %";
+          }
+        }
+        const temperature = currentWeather.temperature + "°C";
+        const windspeed = currentWeather.windspeed + " km/h";
+        const winddirection = currentWeather.winddirection + "°";
+        const weatherTime = currentWeather.time;
+        
+        // 3. Ottieni l'altitudine tramite Open Elevation API
+        const elevationUrl = `https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lon}`;
+        const elevationResponse = await fetch(elevationUrl);
+        if (!elevationResponse.ok) {
+          throw new Error("Errore durante il recupero dei dati di altitudine.");
+        }
+        const elevationData = await elevationResponse.json();
+        const altitude =
+          elevationData.results && elevationData.results.length > 0
+            ? elevationData.results[0].elevation + " m"
+            : "Non disponibile";
+        
+        // 4. Ottieni informazioni del paese da REST Countries (si utilizza il codice alfa se disponibile)
+        let countryData = {};
+        try {
+          let restcountriesUrl = "";
+          if (countryCode) {
+            restcountriesUrl = `https://restcountries.com/v3.1/alpha/${countryCode}`;
+          } else {
+            restcountriesUrl = `https://restcountries.com/v3.1/name/${encodeURIComponent(country)}?fullText=true`;
+          }
+          const countryResponse = await fetch(restcountriesUrl);
+          if (countryResponse.ok) {
+            const countryInfo = await countryResponse.json();
+            if (countryInfo && countryInfo.length > 0) {
+              const c = countryInfo[0];
+              countryData.population = c.population ? c.population.toLocaleString() : "Non disponibile";
+              countryData.region = c.region || "Non disponibile";
+              countryData.subregion = c.subregion || "Non disponibile";
+              countryData.continents = c.continents ? c.continents.join(", ") : "Non disponibile";
+              countryData.capital = c.capital ? c.capital.join(", ") : "Non disponibile";
+            }
+          }
+        } catch (e) {
+          countryData = {
+            population: "Non disponibile",
+            region: "Non disponibile",
+            subregion: "Non disponibile",
+            continents: "Non disponibile",
+            capital: "Non disponibile"
+          };
+        }
+        
+        // Crea la visualizzazione dei risultati
+        let html = `<h3>${cityDisplayName}</h3>`;
+        html += `<p><strong>Coordinate:</strong> ${lat.toFixed(4)}, ${lon.toFixed(4)}</p>`;
+        html += `<p><strong>Indirizzo completo:</strong> ${displayName}</p>`;
+        if (province) {
+          html += `<p><strong>Provincia/Contea:</strong> ${province}</p>`;
+        }
+        if (state) {
+          html += `<p><strong>Regione/Stato:</strong> ${state}</p>`;
+        }
+        if (postcode) {
+          html += `<p><strong>CAP:</strong> ${postcode}</p>`;
+        }
+        html += `<hr>`;
+        html += `<h4>Meteo Attuale</h4>`;
+        html += `<p><strong>Temperatura:</strong> ${temperature}</p>`;
+        html += `<p><strong>Umidità:</strong> ${humidity}</p>`;
+        html += `<p><strong>Velocità del vento:</strong> ${windspeed}</p>`;
+        html += `<p><strong>Direzione del vento:</strong> ${winddirection}</p>`;
+        html += `<p><strong>Orario rilevamento:</strong> ${weatherTime}</p>`;
+        html += `<hr>`;
+        html += `<h4>Geografia</h4>`;
+        html += `<p><strong>Altitudine:</strong> ${altitude}</p>`;
+        html += `<hr>`;
+        html += `<h4>Dettagli Paese</h4>`;
+        html += `<p><strong>Nazione:</strong> ${country}</p>`;
+        html += `<p><strong>Capitale:</strong> ${countryData.capital || "Non disponibile"}</p>`;
+        html += `<p><strong>Popolazione:</strong> ${countryData.population || "Non disponibile"}</p>`;
+        html += `<p><strong>Regione:</strong> ${countryData.region || "Non disponibile"}</p>`;
+        html += `<p><strong>Sottoregione:</strong> ${countryData.subregion || "Non disponibile"}</p>`;
+        html += `<p><strong>Continente:</strong> ${countryData.continents || "Non disponibile"}</p>`;
+        
+        document.getElementById("resultContent").innerHTML = html;
+        document.getElementById("resultSection").style.display = "block";
+      } catch (error) {
+        showError(error.message);
+      } finally {
+        searchBtn.disabled = false;
+        searchBtn.textContent = "Cerca";
+      }
+    });
+    
+    function showError(message) {
+      const errorDiv = document.getElementById("errorMsg");
+      errorDiv.textContent = message;
+      errorDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>
