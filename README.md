@@ -38,14 +38,6 @@ Welcome to **WebTamplate** – a curated collection of open source web templates
 
 Below is an overview of key templates available in this repository:
 
-| Template Name       | Description                                                            | Demo / Source                                  |
-| ------------------- | ---------------------------------------------------------------------- | ---------------------------------------------- |
-| **Minimal Landing** | A sleek, one-page landing template with bold typography and clean design. | [Demo](https://example.com/demo/minimal-landing) / [Source](./MinimalLanding)  |
-| **Portfolio Pro**   | A modern portfolio template ideal for creatives and professionals.       | [Demo](https://example.com/demo/portfolio-pro) / [Source](./PortfolioPro)      |
-| **Agency Theme**    | A multi-section template perfect for agencies and startup businesses.      | [Demo](https://example.com/demo/agency-theme) / [Source](./AgencyTheme)        |
-| **Blog Template**   | A responsive blog layout built for readability and ease of use.            | [Demo](https://example.com/demo/blog-template) / [Source](./BlogTemplate)      |
-| ...                 | ...                                                                    | ...                                            |
-
 Feel free to browse the folders for more templates and details on each one.
 
 ---
