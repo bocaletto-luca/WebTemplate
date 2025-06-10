@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NomeSito - Trasforma le Tue Idee in Realtà</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Animate.css per animazioni -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- Font Awesome per icone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pamI50S5+viGoeTWfKU9IrsW2wIhLrPu6WQ+XNsExGC80HHG7cp/sPqHSaw0X0RHB+LLI1ghJNyGlylrh1kM3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    /* Variabili personalizzabili (Tailwind permette anche di modificare in config, ma qui usiamo CSS custom) */
+    :root {
+      --primary-color: #2563EB;   /* Blu Tailwind (blue-600) */
+      --accent-color: #F59E0B;    /* Ambra Tailwind (amber-500) */
+      --background-color: #EFF6FF;/* Azzurro chiaro Tailwind (blue-50) */
+      --text-color: #1F2937;      /* Gray-800 */
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-r from-gray-50 to-blue-50">
+  
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 bg-white shadow">
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <!-- Logo e NomeSito -->
+      <a href="#" class="flex items-center text-2xl font-bold text-blue-600">
+        <i class="fas fa-lightbulb mr-2"></i>
+        NomeSito
+      </a>
+      <!-- Menu Desktop -->
+      <ul class="hidden md:flex space-x-6">
+        <li><a href="#hero" class="hover:text-blue-600 transition">Home</a></li>
+        <li><a href="#about" class="hover:text-blue-600 transition">Chi Siamo</a></li>
+        <li><a href="#services" class="hover:text-blue-600 transition">Servizi</a></li>
+        <li><a href="#portfolio" class="hover:text-blue-600 transition">Portfolio</a></li>
+        <li><a href="#contact" class="hover:text-blue-600 transition">Contatti</a></li>
+        <li><a href="#newsletter" class="hover:text-blue-600 transition">Newsletter</a></li>
+      </ul>
+      <!-- Menu Mobile -->
+      <button id="nav-toggle" class="md:hidden text-blue-600 focus:outline-none">
+        <i class="fas fa-bars fa-2x"></i>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white">
+      <ul class="flex flex-col space-y-2 p-4">
+        <li><a href="#hero" class="text-blue-600">Home</a></li>
+        <li><a href="#about" class="text-blue-600">Chi Siamo</a></li>
+        <li><a href="#services" class="text-blue-600">Servizi</a></li>
+        <li><a href="#portfolio" class="text-blue-600">Portfolio</a></li>
+        <li><a href="#contact" class="text-blue-600">Contatti</a></li>
+        <li><a href="#newsletter" class="text-blue-600">Newsletter</a></li>
+      </ul>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('https://source.unsplash.com/1600x900/?innovation,abstract');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative z-10 text-center text-white animate__animated animate__fadeInDown">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Benvenuti su NomeSito</h1>
+      <p class="text-xl md:text-2xl mb-8">Trasforma le tue idee in realtà con innovazione e creatività</p>
+      <a href="#about" class="px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-full uppercase tracking-wide font-semibold transition">Scopri di più</a>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-blue-600 mb-12">Chi Siamo</h2>
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2">
+          <img src="https://source.unsplash.com/600x400/?team,office" alt="Il nostro team" class="rounded-lg shadow-lg">
+        </div>
+        <div class="md:w-1/2 mt-8 md:mt-0 md:pl-12">
+          <p class="text-xl text-gray-700">NomeSito nasce dalla passione per l’innovazione e per il design moderno. Il nostro team lavora quotidianamente per realizzare soluzioni digitali personalizzate che trasformino le idee in progetti concreti. Dal web design allo sviluppo di applicazioni, ci impegniamo a offrire sistemi flessibili, performanti e dal design avveniristico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Services Section -->
+  <section id="services" class="py-20 bg-gray-100">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-blue-600 mb-12">I Nostri Servizi</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 animate__animated animate__fadeInLeft">
+          <img src="https://source.unsplash.com/400x300/?web,design" alt="Web Design" class="w-full h-48 object-cover">
+          <div class="p-6 text-center">
+            <h5 class="text-2xl font-bold text-blue-600 mb-2">Web Design</h5>
+            <p class="text-gray-700">Progettiamo siti web moderni e intuitivi, pensati per il successo.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 animate__animated animate__fadeInUp animate__delay-1s">
+          <img src="https://source.unsplash.com/400x300/?app,development" alt="Sviluppo App" class="w-full h-48 object-cover">
+          <div class="p-6 text-center">
+            <h5 class="text-2xl font-bold text-blue-600 mb-2">Sviluppo App</h5>
+            <p class="text-gray-700">Realizziamo applicazioni mobile e web performanti e scalabili.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 animate__animated animate__fadeInRight animate__delay-2s">
+          <img src="https://source.unsplash.com/400x300/?digital,marketing" alt="Digital Marketing" class="w-full h-48 object-cover">
+          <div class="p-6 text-center">
+            <h5 class="text-2xl font-bold text-blue-600 mb-2">Digital Marketing</h5>
+            <p class="text-gray-700">Strategie integrate per aumentare la visibilità del tuo brand online.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-blue-600 mb-12">Portfolio</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="animate__animated animate__zoomIn">
+          <img src="https://source.unsplash.com/600x400/?project,creative" alt="Progetto 1" class="rounded-lg shadow-lg">
+        </div>
+        <div class="animate__animated animate__zoomIn animate__delay-1s">
+          <img src="https://source.unsplash.com/600x400/?website,design" alt="Progetto 2" class="rounded-lg shadow-lg">
+        </div>
+        <div class="animate__animated animate__zoomIn animate__delay-2s">
+          <img src="https://source.unsplash.com/600x400/?app,interface" alt="Progetto 3" class="rounded-lg shadow-lg">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-gray-100">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-blue-600 mb-12">Contatti</h2>
+      <div class="text-center">
+        <p class="text-xl"><i class="fas fa-map-marker-alt mr-2"></i>Via Esempio, 123 - Città</p>
+        <p class="text-xl mt-4"><i class="fas fa-phone mr-2"></i>+39 012 3456789</p>
+        <p class="text-xl mt-4"><i class="fas fa-envelope mr-2"></i>info@nomesito.com</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-blue-600 mb-6">Newsletter</h2>
+      <p class="text-xl text-center mb-8">Iscriviti per ricevere aggiornamenti e offerte speciali!</p>
+      <div class="text-center">
+        <input type="email" class="border border-blue-500 rounded-l px-4 py-2 w-full max-w-md inline-block" placeholder="nome@esempio.com" required>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-r inline-block">Iscriviti</button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section -->
+  <footer class="footer bg-gray-800">
+    <div class="container mx-auto px-6">
+      <p class="text-center text-white">&copy; 2025 NomeSito - Tutti i diritti riservati</p>
+      <p class="text-center mt-4 text-white">
+        Seguici:
+        <a href="#" class="mx-2"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="mx-2"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="mx-2"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="mx-2"><i class="fab fa-linkedin"></i></a>
+      </p>
+    </div>
+  </footer>
+  
+  <script>
+    // Tailwind: Mobile navbar toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    navToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Change navbar background on scroll
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('header');
+      if(window.scrollY > 50){
+        navbar.classList.add('bg-blue-600', 'shadow-lg');
+      } else {
+        navbar.classList.remove('bg-blue-600', 'shadow-lg');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NomeSito - Soluzioni Digitali Innovative</title>
+  
+  <!-- Semantic UI CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+  <!-- Animate.css per animazioni -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <!-- FontAwesome per le icone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+
+  <!-- Google Fonts: 'Playfair Display' per titoli e 'Open Sans' per corpo testo -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Variabili CSS per la personalizzazione rapida */
+    :root {
+      --primary-color: #2C3E50;        /* Grigio-bluastro, elegante e solido */
+      --accent-color: #E74C3C;         /* Rosso acceso per accenti */
+      --background-color: #ECF0F1;     /* Grigio chiaro per uno sfondo neutro */
+      --text-color: #34495E;
+      --navbar-bg: rgba(44, 62, 80, 0.9);
+      --hero-overlay: rgba(0, 0, 0, 0.55);
+      --footer-bg: #2C3E50;
+    }
+
+    /* Stili globali e tipografia */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    h1, h2, h3, .section-title {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1rem;
+    }
+
+    /* Navbar */
+    .ui.menu.inverted.main-menu {
+      background-color: var(--navbar-bg) !important;
+      border: none;
+      box-shadow: none;
+    }
+    .ui.menu.inverted.main-menu .item.logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent-color) !important;
+      display: flex;
+      align-items: center;
+    }
+    .ui.menu.inverted.main-menu .item.logo img {
+      max-height: 50px;
+      margin-right: 10px;
+    }
+    .ui.menu.inverted.main-menu .item {
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      color: #fff !important;
+    }
+    .ui.menu.inverted.main-menu .item:hover {
+      color: var(--accent-color) !important;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?innovation,digital') center center/cover no-repeat;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--hero-overlay);
+      z-index: 1;
+    }
+    .hero .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+      color: #fff;
+    }
+    .hero .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: fadeInDown 1s;
+      color: var(--accent-color);
+    }
+    .hero .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 1s;
+    }
+    .hero .hero-content .ui.button {
+      background-color: var(--accent-color) !important;
+      color: var(--primary-color) !important;
+      text-transform: uppercase;
+    }
+
+    /* Sezioni Generali */
+    section {
+      padding: 80px 0;
+    }
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .centered {
+      text-align: center;
+    }
+    
+    /* About Section */
+    #about .ui.grid {
+      align-items: center;
+    }
+    #about img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    #about .about-text {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+
+    /* Services Section */
+    #services .ui.cards > .card {
+      transition: transform 0.3s ease;
+    }
+    #services .ui.cards > .card:hover {
+      transform: translateY(-5px);
+    }
+    #services .ui.cards .image img {
+      object-fit: cover;
+      height: 200px;
+    }
+
+    /* Portfolio Section */
+    #portfolio .ui.grid .column img {
+      width: 100%;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+    #portfolio .ui.grid .column img:hover {
+      transform: scale(1.02);
+    }
+
+    /* Contact Section */
+    #contact .contact-info {
+      text-align: center;
+    }
+    #contact .contact-info p {
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+    #contact .contact-info i {
+      color: var(--primary-color);
+      margin-right: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    /* Newsletter Section */
+    #newsletter .newsletter-form {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #newsletter .newsletter-form .ui.input input {
+      max-width: 400px;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--footer-bg);
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .footer a {
+      color: var(--accent-color);
+      margin: 0 0.5rem;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animazioni personalizzate */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <div class="ui inverted top fixed menu main-menu">
+    <div class="ui container">
+      <a href="#" class="header item logo">
+        <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo NomeSito">
+        NomeSito
+      </a>
+      <a href="#hero" class="item">Home</a>
+      <a href="#about" class="item">Chi Siamo</a>
+      <a href="#services" class="item">Servizi</a>
+      <a href="#portfolio" class="item">Portfolio</a>
+      <a href="#contact" class="item">Contatti</a>
+      <a href="#newsletter" class="item">Newsletter</a>
+    </div>
+  </div>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Benvenuti su NomeSito</h1>
+      <p class="animate__animated animate__fadeInUp animate__delay-1s">Soluzioni digitali innovative e creative</p>
+      <a href="#about" class="ui button animate__animated animate__fadeInUp animate__delay-2s">Scopri di più</a>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about" class="ui vertical segment">
+    <div class="ui container section-container">
+      <h2 class="ui header centered section-title">Chi Siamo</h2>
+      <div class="ui stackable grid">
+        <div class="eight wide column">
+          <img src="https://source.unsplash.com/600x400/?office,team" alt="Il nostro team" class="ui rounded image">
+        </div>
+        <div class="eight wide column about-text">
+          <p>
+            NomeSito è una piattaforma generica per soluzioni digitali. Il nostro team di professionisti si impegna a trasformare idee in progetti concreti, offrendo creatività, innovazione e tecnologia.
+          </p>
+          <p>
+            Siamo appassionati del nostro lavoro e crediamo nel potere delle idee per cambiare il mondo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Services Section -->
+  <section id="services" class="ui vertical segment">
+    <div class="ui container section-container">
+      <h2 class="ui header centered section-title">I Nostri Servizi</h2>
+      <div class="ui three stackable cards">
+        <div class="card animate__animated animate__fadeInLeft">
+          <div class="image">
+            <img src="https://source.unsplash.com/400x300/?web,development" alt="Sviluppo Web">
+          </div>
+          <div class="content">
+            <div class="header">Sviluppo Web</div>
+            <div class="description">Siti web moderni e responsive, realizzati su misura per ogni esigenza.</div>
+          </div>
+        </div>
+        <div class="card animate__animated animate__fadeInUp animate__delay-1s">
+          <div class="image">
+            <img src="https://source.unsplash.com/400x300/?graphic,design" alt="Design Grafico">
+          </div>
+          <div class="content">
+            <div class="header">Design Grafico</div>
+            <div class="description">Soluzioni creative per rafforzare l'immagine del tuo brand.</div>
+          </div>
+        </div>
+        <div class="card animate__animated animate__fadeInRight animate__delay-2s">
+          <div class="image">
+            <img src="https://source.unsplash.com/400x300/?digital,marketing" alt="Digital Marketing">
+          </div>
+          <div class="content">
+            <div class="header">Digital Marketing</div>
+            <div class="description">Strategie mirate per aumentare la visibilità e il coinvolgimento online.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="ui vertical segment">
+    <div class="ui container section-container">
+      <h2 class="ui header centered section-title">Portfolio</h2>
+      <div class="ui three column stackable grid">
+        <div class="column portfolio-item animate__animated animate__zoomIn">
+          <img src="https://source.unsplash.com/600x400/?project,creative" alt="Progetto 1" class="ui image">
+        </div>
+        <div class="column portfolio-item animate__animated animate__zoomIn animate__delay-1s">
+          <img src="https://source.unsplash.com/600x400/?website,design" alt="Progetto 2" class="ui image">
+        </div>
+        <div class="column portfolio-item animate__animated animate__zoomIn animate__delay-2s">
+          <img src="https://source.unsplash.com/600x400/?app,development" alt="Progetto 3" class="ui image">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact" class="ui vertical segment">
+    <div class="ui container section-container">
+      <h2 class="ui header centered section-title">Contatti</h2>
+      <div class="ui center aligned segment contact-info">
+        <p><i class="fas fa-map-marker-alt"></i> Via Esempio, 123 - Città</p>
+        <p><i class="fas fa-phone"></i> +39 012 3456789</p>
+        <p><i class="fas fa-envelope"></i> info@nomesito.com</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="ui vertical segment">
+    <div class="ui container section-container">
+      <h2 class="ui header centered section-title">Newsletter</h2>
+      <p class="uk-text-center">Iscriviti per ricevere aggiornamenti e offerte speciali!</p>
+      <div class="ui form newsletter-form centered">
+        <div class="field">
+          <div class="ui action input">
+            <input type="email" placeholder="nome@esempio.com" required>
+            <button class="ui button">Iscriviti</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section -->
+  <footer class="ui inverted vertical footer segment">
+    <div class="ui container center aligned">
+      <p>© 2025 NomeSito - Tutti i diritti riservati</p>
+      <p>
+        Seguici:
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Optional: jQuery per Semantic UI (se necessario) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  
+</body>
+</html>

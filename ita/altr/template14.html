@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sala di Comando - Controlla il Futuro</title>
+  
+  <!-- Google Fonts: Orbitron per un look futuristico -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
+  <!-- Animate.css per animazioni -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <style>
+    /* Variabili di stile */
+    :root {
+      --primary-color: #FF7F00;   /* Neon arancione */
+      --dark-bg: #111;            /* Sfondo scuro */
+      --light-text: #EEE;
+    }
+    
+    /* Stili globali */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: var(--primary-color); }
+    
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid var(--primary-color);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+    .header-left img {
+      height: 50px;
+      margin-right: 1rem;
+    }
+    .header-left .title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    .header-right nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    .header-right nav ul li a {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--light-text);
+      transition: color 0.3s;
+    }
+    .header-right nav ul li a:hover {
+      color: var(--primary-color);
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?futuristic,control') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 1rem;
+      margin-top: 80px; /* spazio per header */
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+      animation: fadeInDown 1s;
+    }
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 5px var(--light-text);
+      animation: fadeInUp 1s;
+    }
+    
+    /* Tabs Section */
+    .tabs-container {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    .tabs-menu {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      border-bottom: 2px solid var(--primary-color);
+      margin-bottom: 2rem;
+    }
+    .tab-button {
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: var(--light-text);
+      transition: color 0.3s, border-bottom 0.3s;
+    }
+    .tab-button.active {
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
+    }
+    .tab-content {
+      display: none;
+      animation: fadeIn 1s;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .tab-section {
+      background: rgba(255, 127, 0, 0.1);
+      border: 1px solid var(--primary-color);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px var(--primary-color);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark-bg);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-top: 2px solid var(--primary-color);
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header con Logo, Titolo, Motto e Navigazione -->
+  <header>
+    <div class="header-left">
+      <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo Sala di Comando">
+      <div class="title">SALA DI COMANDO</div>
+    </div>
+    <div class="header-right">
+      <nav>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#tabs-section">Dashboard</a></li>
+          <li><a href="#">Sistemi</a></li>
+          <li><a href="#">Report</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Hero Section con Arcobaleno Neon e Overlay -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Benvenuto, Operatore</h1>
+      <p class="animate__animated animate__fadeInUp animate__delay-1s">Controlla il Futuro – Sistema in tempo reale</p>
+    </div>
+  </section>
+  
+  <!-- Tabs Section con Menu a Schede -->
+  <section id="tabs-section" class="tabs-container">
+    <div class="tabs-menu">
+      <div class="tab-button active" data-tab="tab1">Panoramica</div>
+      <div class="tab-button" data-tab="tab2">Sistemi</div>
+      <div class="tab-button" data-tab="tab3">Azioni</div>
+      <div class="tab-button" data-tab="tab4">Report</div>
+    </div>
+    <div id="tab1" class="tab-content active">
+      <div class="tab-section">
+        <h2 class="section-title">Panoramica</h2>
+        <p>Visualizza lo stato generale del sistema, i parametri operativi e le statistiche in tempo reale. I dati si aggiornano automaticamente per offrirti una visione completa e immediata.</p>
+        <img src="https://source.unsplash.com/800x400/?dashboard,futuristic" alt="Dashboard" class="w-full mt-4 rounded">
+      </div>
+    </div>
+    <div id="tab2" class="tab-content">
+      <div class="tab-section">
+        <h2 class="section-title">Sistemi</h2>
+        <p>Monitorizza i vari sottosistemi, visualizza allarmi e statistiche individuali. Controlla le prestazioni e lo stato operativo di ogni componente.</p>
+        <img src="https://source.unsplash.com/800x400/?system,technology" alt="Systems" class="w-full mt-4 rounded">
+      </div>
+    </div>
+    <div id="tab3" class="tab-content">
+      <div class="tab-section">
+        <h2 class="section-title">Azioni</h2>
+        <p>Esegui comandi rapidi e reazioni immediate: avvia procedure di emergenza, aggiorna i parametri o invia comandi direttamente ai sistemi. Qui troverai i controlli operativi per intervenire in ogni situazione.</p>
+        <img src="https://source.unsplash.com/800x400/?controls,futuristic" alt="Actions" class="w-full mt-4 rounded">
+      </div>
+    </div>
+    <div id="tab4" class="tab-content">
+      <div class="tab-section">
+        <h2 class="section-title">Report</h2>
+        <p>Accedi a report dettagliati delle operazioni, analisi delle prestazioni e statistiche storiche per prendere decisioni informate.</p>
+        <img src="https://source.unsplash.com/800x400/?report,analysis" alt="Reports" class="w-full mt-4 rounded">
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Sala di Comando - Tutti i diritti riservati</p>
+  </footer>
+  
+  <script>
+    // Tab functionality
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

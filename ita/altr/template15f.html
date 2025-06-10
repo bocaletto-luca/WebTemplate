@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sala di Comando - Real Time Maps</title>
+  
+  <!-- Leaflet CSS per mappe interattive (OpenStreetMap) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-sA+e2MjFz6n/ezhUNW1jBPEs173pHV95+mLr9t+U7r0=" crossorigin=""/>
+  
+  <!-- Animate.css per animazioni -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  
+  <!-- Google Fonts: Orbitron per un look futuristico -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
+  
+  <!-- FontAwesome per icone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"/>
+  
+  <style>
+    /* Variabili di stile */
+    :root {
+      --primary-color: #FF7F00;    /* Neon arancione */
+      --dark-bg: #111;             /* Sfondo scuro */
+      --light-text: #EEE;
+      --font-title: 'Orbitron', sans-serif;
+    }
+    
+    /* Reset e stili globali */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      font-family: var(--font-title);
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: var(--primary-color); transition: color 0.3s; }
+    
+    /* Navbar – Layout che si adatta in maniera responsive da orizzontale a verticale */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.9);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid var(--primary-color);
+      z-index: 1000;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .nav-left img { height: 50px; }
+    .nav-left .logo-text {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    .nav-right ul {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .nav-right ul { flex-direction: column; width: 100%; margin-top: 1rem; }
+      .nav-right ul li { text-align: center; }
+    }
+    .nav-right a {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--light-text);
+    }
+    .nav-right a:hover { color: var(--primary-color); }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 40vh;
+      margin-top: 80px; /* Spazio per la navbar */
+      background: url('https://source.unsplash.com/1600x900/?futuristic,command') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: var(--light-text);
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+      animation: fadeInDown 1s;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 5px var(--light-text);
+      animation: fadeInUp 1s;
+    }
+    
+    /* Tabs Section – per le mappe */
+    .tabs-container {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    .tabs-menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      border-bottom: 2px solid var(--primary-color);
+      margin-bottom: 2rem;
+    }
+    .tab-button {
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: var(--light-text);
+      transition: color 0.3s, border-bottom 0.3s;
+    }
+    .tab-button.active {
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
+    }
+    .tab-content {
+      display: none;
+      animation: fadeIn 1s;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    /* Search Bar all’interno di ogni tab */
+    .search-bar {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .search-bar input {
+      padding: 0.5rem;
+      border: 1px solid var(--primary-color);
+      border-radius: 4px;
+      width: 300px;
+      max-width: 80%;
+      background: var(--dark-bg);
+      color: var(--primary-color);
+    }
+    .search-bar button {
+      padding: 0.5rem 1rem;
+      margin-left: 0.5rem;
+      background-color: var(--primary-color);
+      border: none;
+      color: var(--dark-bg);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .search-bar button:hover {
+      background-color: #e06d00;
+    }
+    .map-container {
+      width: 100%;
+      height: 500px;
+      border: 2px solid var(--primary-color);
+      border-radius: 8px;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark-bg);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-top: 2px solid var(--primary-color);
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+  </style>
+  
+  <!-- Leaflet JS per mappe interattive (OpenStreetMap) -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-DvZ2x4SfC9wT3e0qERFZH0TrhQOewRlhQmi6Gasz0+M=" crossorigin=""></script>
+</head>
+<body>
+  
+  <!-- Header / Navbar -->
+  <header>
+    <div class="nav-container">
+      <div class="nav-left">
+        <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo Sala di Comando">
+        <span class="logo-text">SALA DI COMANDO</span>
+      </div>
+      <div class="nav-right">
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#tabs-section">Maps</a></li>
+          <li><a href="#">Sistemi</a></li>
+          <li><a href="#">Report</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero flex items-center justify-center">
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Sala di Comando</h1>
+      <p class="animate__animated animate__fadeInUp animate__delay-1s">Controlla le mappe in tempo reale</p>
+    </div>
+  </section>
+  
+  <!-- Tabs Section per le mappe con search bar -->
+  <section id="tabs-section" class="tabs-container">
+    <div class="tabs-menu">
+      <div class="tab-button active" data-tab="map1">Mappa 1</div>
+      <div class="tab-button" data-tab="map2">Mappa 2</div>
+      <div class="tab-button" data-tab="map3">Mappa 3</div>
+      <div class="tab-button" data-tab="map4">Mappa 4</div>
+    </div>
+    
+    <!-- Scheda Mappa 1 -->
+    <div id="map1" class="tab-content active">
+      <div class="search-bar">
+        <input type="text" id="search-input-map1" placeholder="Cerca posizione...">
+        <button onclick="searchLocation('map1')">Cerca</button>
+      </div>
+      <div class="map-container" id="mapContainer1"></div>
+    </div>
+    
+    <!-- Scheda Mappa 2 -->
+    <div id="map2" class="tab-content">
+      <div class="search-bar">
+        <input type="text" id="search-input-map2" placeholder="Cerca posizione...">
+        <button onclick="searchLocation('map2')">Cerca</button>
+      </div>
+      <div class="map-container" id="mapContainer2"></div>
+    </div>
+    
+    <!-- Scheda Mappa 3 -->
+    <div id="map3" class="tab-content">
+      <div class="search-bar">
+        <input type="text" id="search-input-map3" placeholder="Cerca posizione...">
+        <button onclick="searchLocation('map3')">Cerca</button>
+      </div>
+      <div class="map-container" id="mapContainer3"></div>
+    </div>
+    
+    <!-- Scheda Mappa 4 -->
+    <div id="map4" class="tab-content">
+      <div class="search-bar">
+        <input type="text" id="search-input-map4" placeholder="Cerca posizione...">
+        <button onclick="searchLocation('map4')">Cerca</button>
+      </div>
+      <div class="map-container" id="mapContainer4"></div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Sala di Comando - Tutti i diritti riservati</p>
+    </div>
+  </footer>
+  
+  <!-- Script per gestione delle schede (tabs) -->
+  <script>
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+        // Invalida la dimensione della mappa (necessario se la mappa era nascosta)
+        if(window.maps && window.maps[tabId]) {
+          window.maps[tabId].map.invalidateSize();
+        }
+      });
+    });
+  </script>
+  
+  <!-- Script per inizializzare le mappe con Leaflet e integrare funzionalità di ricerca con le API di geocoding (Nominatim) -->
+  <script>
+    // Oggetto globale per contenere le mappe
+    window.maps = {};
+    
+    // Funzione per inizializzare una mappa in un container specificato
+    function initMap(containerId, centerCoords) {
+      const map = L.map(containerId).setView(centerCoords, 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+      // Aggiungi un marker iniziale
+      const marker = L.marker(centerCoords).addTo(map);
+      return { map, marker };
+    }
+    
+    // Inizializza le mappe per ogni scheda (usa coordinate di esempio: Roma, Milano, Napoli, Firenze)
+    document.addEventListener("DOMContentLoaded", function(){
+      window.maps["map1"] = initMap('mapContainer1', [41.9028, 12.4964]); // Roma
+      window.maps["map2"] = initMap('mapContainer2', [45.4642, 9.1900]);  // Milano
+      window.maps["map3"] = initMap('mapContainer3', [40.8518, 14.2681]); // Napoli
+      window.maps["map4"] = initMap('mapContainer4', [43.7696, 11.2558]); // Firenze
+      
+      // (Opzionale) Simulazione di aggiornamento in tempo reale: sposta i marker ogni 3 secondi
+      setInterval(() => {
+        for (const key in window.maps) {
+          const { marker } = window.maps[key];
+          const latlng = marker.getLatLng();
+          const newLat = latlng.lat + (Math.random() - 0.5) * 0.01;
+          const newLng = latlng.lng + (Math.random() - 0.5) * 0.01;
+          marker.setLatLng([newLat, newLng]);
+        }
+      }, 3000);
+    });
+    
+    // Funzione per eseguire la ricerca di una posizione usando l'API Nominatim (OpenStreetMap)
+    function searchLocation(mapId) {
+      const inputId = "search-input-" + mapId;
+      const query = document.getElementById(inputId).value;
+      if(query.trim() === "") return;
+      
+      fetch("https://nominatim.openstreetmap.org/search?format=json&q=" + encodeURIComponent(query))
+        .then(response => response.json())
+        .then(data => {
+          if(data && data.length > 0) {
+            const lat = parseFloat(data[0].lat);
+            const lon = parseFloat(data[0].lon);
+            const mapObj = window.maps[mapId];
+            if(mapObj) {
+              mapObj.marker.setLatLng([lat, lon]);
+              mapObj.map.setView([lat, lon], 13);
+            }
+          } else {
+            alert("Posizione non trovata. Riprova con una query diversa.");
+          }
+        })
+        .catch(err => {
+          alert("Errore nella ricerca.");
+          console.error(err);
+        });
+    }
+  </script>
+</body>
+</html>

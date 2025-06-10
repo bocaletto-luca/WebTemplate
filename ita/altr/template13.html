@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mondadori Libri - Cultura e Storie</title>
+  
+  <!-- Spectre CSS (min.css, icons e optional experimental) -->
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  
+  <!-- Animate.css per alcune animazioni -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  
+  <!-- Google Fonts: "Playfair Display" per i titoli e "Source Sans Pro" per il corpo testo -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome per icone -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  
+  <style>
+    /* Variabili per personalizzare la palette e la tipografia */
+    :root {
+      --primary-color: #002244;       /* Un blu scuro, elegante ed istituzionale */
+      --accent-color:  #E31B23;         /* Rosso, per accenti evidenti */
+      --background-color: #F5F5F5;      /* Sfondo chiaro per sezioni informative */
+      --text-color: #333333;
+      --navbar-bg: rgba(0,34,68,0.9);
+    }
+    
+    /* Stili globali */
+    body {
+      font-family: 'Source Sans Pro', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    h1, h2, h3, .section-title {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1rem;
+    }
+    
+    /* Navbar */
+    .custom-navbar {
+      background-color: var(--navbar-bg);
+      padding: 1rem 2rem;
+    }
+    .custom-navbar .brand {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+    }
+    .custom-navbar .brand img {
+      height: 50px;
+      margin-right: 10px;
+    }
+    .custom-navbar .menu {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    .custom-navbar .menu li {
+      margin-left: 1.5rem;
+    }
+    .custom-navbar .menu li a {
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .custom-navbar .menu li a:hover {
+      color: var(--accent-color);
+    }
+    
+    /* Mobile Navbar */
+    .navbar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--accent-color);
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .custom-navbar .menu { display: none; }
+      .navbar-toggle { display: block; }
+      .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--navbar-bg);
+        padding: 1rem;
+      }
+      .mobile-menu a {
+        padding: 0.5rem 0;
+        text-transform: uppercase;
+        color: #fff;
+        border-bottom: 1px solid var(--accent-color);
+      }
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?books,library') center center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+    }
+    .hero .hero-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+    }
+    .hero .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+      text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+      animation: fadeInDown 1s;
+    }
+    .hero .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 5px #000;
+      animation: fadeInUp 1s;
+    }
+    .hero .hero-content .btn {
+      padding: 0.8rem 1.5rem;
+      background-color: var(--accent-color);
+      border: none;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      animation: fadeInUp 1s;
+    }
+    .hero .hero-content .btn:hover {
+      background-color: #c0141c;
+    }
+    
+    /* Section Titles */
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      text-decoration: underline;
+      color: var(--primary-color);
+    }
+    
+    /* Catalog Section ("Catalogo") */
+    .catalog {
+      padding: 4rem 0;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      margin-bottom: 1rem;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 1rem;
+    }
+    .card-title {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+      font-family: 'Playfair Display', serif;
+    }
+    .card-text {
+      font-size: 1rem;
+      color: var(--text-color);
+    }
+    
+    /* About Section */
+    .about-section {
+      padding: 4rem 0;
+    }
+    .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+    .about-grid img {
+      flex: 1;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .about-grid .about-text {
+      flex: 1;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+    
+    /* Events Section */
+    .events {
+      background: var(--background-color);
+      padding: 4rem 0;
+    }
+    .event-item {
+      border-bottom: 1px solid #ccc;
+      padding: 1rem 0;
+    }
+    .event-item h3 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+    .event-item p {
+      font-size: 1rem;
+    }
+    
+    /* Contact Section */
+    .contact-section {
+      padding: 4rem 0;
+    }
+    .contact-info {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    .contact-info p {
+      margin: 0.5rem 0;
+    }
+    .contact-info i {
+      color: var(--primary-color);
+      margin-right: 0.5rem;
+      font-size: 1.5rem;
+    }
+    
+    /* Newsletter Section */
+    .newsletter {
+      background: var(--background-color);
+      padding: 4rem 0;
+    }
+    .newsletter-form {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .newsletter-form input[type="email"] {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 300px;
+      max-width: 100%;
+    }
+    .newsletter-form button {
+      padding: 0.8rem 1.5rem;
+      background: var(--primary-color);
+      border: none;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: 1rem;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--primary-color);
+      padding: 2rem 1rem;
+      text-align: center;
+      color: var(--accent-color);
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: var(--accent-color);
+      margin: 0 0.5rem;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    footer a:hover {
+      color: var(--secondary-color);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 3rem; }
+      .hero-content p { font-size: 1.2rem; }
+      .section-title { font-size: 2rem; }
+      .about-grid { flex-direction: column; }
+    }
+    
+    /* Animazioni (Animate.css for fadeIn, zoomIn, etc.) - già incluse con animate.css */
+    
+  </style>
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container flex justify-between items-center">
+      <div class="logo flex items-center">
+        <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo Mondadori Libri">
+        <span>Mondadori Libri</span>
+      </div>
+      <!-- Desktop Menu -->
+      <nav class="d-none d-md-flex">
+        <ul class="flex space-x-6">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#catalog">Catalogo</a></li>
+          <li><a href="#about">Chi Siamo</a></li>
+          <li><a href="#events">Eventi</a></li>
+          <li><a href="#contact">Contatti</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+        </ul>
+      </nav>
+      <!-- Mobile Menu Toggler -->
+      <button id="mobile-menu-button" class="d-md-none p-2 border-0 bg-transparent">
+        <i class="fas fa-bars fa-2x" style="color: var(--primary-color);"></i>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu" class="mobile-menu hidden">
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#catalog">Catalogo</a></li>
+        <li><a href="#about">Chi Siamo</a></li>
+        <li><a href="#events">Eventi</a></li>
+        <li><a href="#contact">Contatti</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero flex items-center justify-center">
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Benvenuti su Mondadori Libri</h1>
+      <p class="animate__animated animate__fadeInUp animate__delay-1s">Le storie che ispirano, le pagine che parlano</p>
+      <a href="#catalog" class="btn animate__animated animate__fadeInUp animate__delay-2s">Scopri il Catalogo</a>
+    </div>
+  </section>
+  
+  <!-- Catalog Section -->
+  <section id="catalog" class="catalog">
+    <div class="container">
+      <h2 class="section-title">Catalogo</h2>
+      <div class="columns is-multiline">
+        <!-- Card 1 -->
+        <div class="column is-one-quarter">
+          <div class="card">
+            <img src="https://source.unsplash.com/400x300/?book,fiction" alt="Libro 1">
+            <div class="card-body">
+              <h3 class="card-title">L'Infinito</h3>
+              <p class="card-text">Un viaggio nella fantasia senza limiti.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="column is-one-quarter">
+          <div class="card">
+            <img src="https://source.unsplash.com/400x300/?book,novel" alt="Libro 2">
+            <div class="card-body">
+              <h3 class="card-title">Storie d'Amore</h3>
+              <p class="card-text">Emozioni, passione e racconti indimenticabili.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="column is-one-quarter">
+          <div class="card">
+            <img src="https://source.unsplash.com/400x300/?book,history" alt="Libro 3">
+            <div class="card-body">
+              <h3 class="card-title">Il Passato</h3>
+              <p class="card-text">Viaggia indietro nel tempo e riscopri il mondo.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="column is-one-quarter">
+          <div class="card">
+            <img src="https://source.unsplash.com/400x300/?book,science" alt="Libro 4">
+            <div class="card-body">
+              <h3 class="card-title">Scienza e Mistero</h3>
+              <p class="card-text">Conoscenza e innovazione in ogni pagina.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about" class="about-section bg-light">
+    <div class="container">
+      <h2 class="section-title text-center">Chi Siamo</h2>
+      <div class="columns is-vcentered">
+        <div class="column is-half">
+          <img src="https://source.unsplash.com/600x400/?library,books" alt="Il nostro ambiente">
+        </div>
+        <div class="column is-half about-text">
+          <p>Da decenni, Mondadori Libri rappresenta l’eccellenza editoriale. Attraverso una selezione curata di titoli e una passione per la cultura, offriamo storie che ispirano e arricchiscono la mente. La nostra missione è promuovere la lettura e diffondere la conoscenza in un mondo in continua evoluzione.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Events Section -->
+  <section id="events" class="events bg-dark">
+    <div class="container text-white">
+      <h2 class="section-title text-center">Eventi</h2>
+      <div class="columns">
+        <div class="column">
+          <div class="event-item">
+            <h3 class="title is-4" style="color: var(--primary-color);">Presentazione Libro</h3>
+            <p>Scopri il nuovo romanzo del nostro autore di punta in una serata esclusiva.</p>
+            <p><strong>Data:</strong> 12 Dicembre 2023</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="event-item">
+            <h3 class="title is-4" style="color: var(--primary-color);">Incontro con Autori</h3>
+            <p>Partecipa a un evento esclusivo con i migliori scrittori.</p>
+            <p><strong>Data:</strong> 05 Gennaio 2024</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="event-item">
+            <h3 class="title is-4" style="color: var(--primary-color);">Workshop di Scrittura</h3>
+            <p>Laboratori per aspiranti scrittori per affinare la propria arte narrativa.</p>
+            <p><strong>Data:</strong> 20 Febbraio 2024</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <h2 class="section-title text-center">Contatti</h2>
+      <div class="columns is-centered">
+        <div class="column is-half contact-info">
+          <p><i class="fas fa-map-marker-alt"></i> Via della Cultura, 101 - Milano</p>
+          <p><i class="fas fa-phone"></i> +39 02 12345678</p>
+          <p><i class="fas fa-envelope"></i> info@mondadorilibri.it</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="newsletter bg-light">
+    <div class="container">
+      <h2 class="section-title text-center">Newsletter</h2>
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <p class="has-text-centered">Iscriviti per ricevere aggiornamenti sulle nostre novità ed eventi!</p>
+          <div class="field has-addons has-addons-centered">
+            <div class="control is-expanded">
+              <input class="input" type="email" placeholder="nome@esempio.com" required>
+            </div>
+            <div class="control">
+              <button class="button is-primary">Iscriviti</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer" style="background-color: var(--primary-color);">
+    <div class="container has-text-centered">
+      <p>© 2025 Mondadori Libri - Tutti i diritti riservati</p>
+      <p class="mt-4">
+         Seguici:
+         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+         <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+         <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Mobile Menu Toggle Script -->
+  <script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+  
+</body>
+</html>

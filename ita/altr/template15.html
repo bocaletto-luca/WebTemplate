@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sala di Comando - Real Time Maps</title>
+  
+  <!-- Leaflet CSS (per le mappe interattive) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" 
+        integrity="sha256-sA+e2MjFz6n/ezhUNW1jBPEs173pHV95+mLr9t+U7r0=" crossorigin=""/>
+  
+  <!-- Animate.css per animazioni -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  
+  <!-- Google Fonts: Utilizziamo Orbitron per un look futuristico -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
+  
+  <!-- FontAwesome per icone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+  
+  <style>
+    /* Variabili di stile */
+    :root {
+      --primary-color: #FF7F00;   /* Neon arancione */
+      --dark-bg: #111;            /* Sfondo scuro */
+      --light-text: #EEE;
+      --font-title: 'Orbitron', sans-serif;
+    }
+    
+    /* Reset e stili generali */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      font-family: var(--font-title);
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: var(--primary-color); }
+    
+    /* Header / Navbar */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.9);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid var(--primary-color);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 50px;
+      margin-right: 1rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav ul li a {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--light-text);
+      transition: color 0.3s;
+    }
+    nav ul li a:hover { color: var(--primary-color); }
+    
+    /* Mobile Navbar */
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      cursor: pointer;
+    }
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: rgba(0,0,0,0.95);
+      width: 100%;
+      padding: 1rem;
+    }
+    .mobile-menu a {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--primary-color);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      color: var(--light-text);
+    }
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .hamburger { display: block; }
+    }
+    
+    /* Hero Section (facoltativo, per introdurre la pagina) */
+    .hero {
+      position: relative;
+      height: 40vh; /* Più contenuto per i tab */
+      background: url('https://source.unsplash.com/1600x900/?futuristic,control') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 80px;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: var(--light-text);
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+      animation: fadeInDown 1s;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      animation: fadeInUp 1s;
+    }
+    
+    /* Tabs Section (Map Tabs) */
+    .tabs-container {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    .tabs-menu {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      border-bottom: 2px solid var(--primary-color);
+      margin-bottom: 2rem;
+    }
+    .tab-button {
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: var(--light-text);
+      transition: color 0.3s, border-bottom 0.3s;
+    }
+    .tab-button.active {
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
+    }
+    .tab-content {
+      display: none;
+      animation: fadeIn 1s;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    /* Map container style */
+    .map-container {
+      width: 100%;
+      height: 500px;
+      border: 2px solid var(--primary-color);
+      border-radius: 8px;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark-bg);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-top: 2px solid var(--primary-color);
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 2.5rem; }
+      .hero-content p { font-size: 1rem; }
+      .tabs-menu { flex-direction: column; }
+    }
+  </style>
+  
+  <!-- Leaflet JS (per le mappe interattive) -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" 
+          integrity="sha256-DvZ2x4SfC9wT3e0qERFZH0TrhQOewRlhQmi6Gasz0+M=" crossorigin=""></script>
+</head>
+<body>
+  
+  <!-- Header / Navbar -->
+  <header>
+    <div class="container flex justify-between items-center">
+      <div class="logo flex items-center">
+        <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo Sala di Comando">
+        <span>SALA DI COMANDO</span>
+      </div>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:block">
+        <ul class="flex space-x-6">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#tabs-section">Maps</a></li>
+          <li><a href="#">Sistemi</a></li>
+          <li><a href="#">Report</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </nav>
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+        <i class="fas fa-bars fa-2x"></i>
+      </button>
+    </div>
+    <!-- Mobile Navigation Menu -->
+    <nav id="mobile-menu" class="mobile-menu hidden">
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#tabs-section">Maps</a></li>
+        <li><a href="#">Sistemi</a></li>
+        <li><a href="#">Report</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Optional Hero (con breve introduzione alle mappe) -->
+  <section id="hero" class="hero flex items-center justify-center">
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Sala di Comando</h1>
+      <p class="animate__animated animate__fadeInUp animate__delay-1s">Controlla le Mappe in Real Time</p>
+    </div>
+  </section>
+  
+  <!-- Tabs Section per Mappe -->
+  <section id="tabs-section" class="tabs-container">
+    <div class="tabs-menu">
+      <div class="tab-button active" data-tab="map1">Mappa 1</div>
+      <div class="tab-button" data-tab="map2">Mappa 2</div>
+      <div class="tab-button" data-tab="map3">Mappa 3</div>
+      <div class="tab-button" data-tab="map4">Mappa 4</div>
+    </div>
+    <div id="map1" class="tab-content active">
+      <div class="map-container" id="mapContainer1"></div>
+    </div>
+    <div id="map2" class="tab-content">
+      <div class="map-container" id="mapContainer2"></div>
+    </div>
+    <div id="map3" class="tab-content">
+      <div class="map-container" id="mapContainer3"></div>
+    </div>
+    <div id="map4" class="tab-content">
+      <div class="map-container" id="mapContainer4"></div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Sala di Comando - Tutti i diritti riservati</p>
+    </div>
+  </footer>
+  
+  <!-- JavaScript per Tabs -->
+  <script>
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+        // Rimuovi classe active da tutti i tab button
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        // Aggiungi classe active al tab cliccato
+        button.classList.add('active');
+        // Nascondi tutti i contenuti
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        // Mostra il contenuto corrispondente
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+  </script>
+  
+  <!-- JavaScript per inizializzare le mappe con Leaflet -->
+  <script>
+    // Funzione di inizializzazione per una mappa
+    function initMap(containerId, centerCoords) {
+      const map = L.map(containerId).setView(centerCoords, 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      // Aggiungi un marker per esempio
+      L.marker(centerCoords).addTo(map);
+    }
+    
+    // Inizializza 4 mappe con centri diversi
+    document.addEventListener("DOMContentLoaded", function(){
+      initMap('mapContainer1', [41.9028, 12.4964]); // Roma
+      initMap('mapContainer2', [45.4642, 9.1900]);  // Milano
+      initMap('mapContainer3', [40.8518, 14.2681]); // Napoli
+      initMap('mapContainer4', [43.7696, 11.2558]); // Firenze
+    });
+  </script>
+  
+  <!-- Mobile Menu Toggle Script -->
+  <script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NomeSito - Innovazione e Creatività</title>
+
+  <!-- UIkit CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.3/dist/css/uikit.min.css" />
+
+  <!-- UIkit JS and Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.3/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.16.3/dist/js/uikit-icons.min.js"></script>
+
+  <!-- Google Fonts: Raleway per titoli, Open Sans per il corpo -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome per le icone (opzionale, in aggiunta a UIkit Icons) -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+  <style>
+    /* Variabili CSS per personalizzazione rapida */
+    :root {
+      --primary-color: #2E8B57;       /* Verde mare intenso */
+      --accent-color:  #FF4500;        /* Accento arancione-rosso */
+      --background-color: #F0FFF0;     /* Sfondo a tono honeydew */
+      --text-color: #333333;
+      --navbar-bg: rgba(46,139,87,0.9); /* Navbar con trasparenza */
+      --footer-bg: #2E8B57;
+    }
+
+    /* Impostazioni globali */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    h1, h2, h3, .section-title {
+      font-family: 'Raleway', sans-serif;
+      margin-bottom: 1rem;
+    }
+
+    /* Navbar custom */
+    .uk-navbar-container {
+      background-color: var(--navbar-bg) !important;
+    }
+    .uk-navbar-item.uk-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent-color) !important;
+      display: flex;
+      align-items: center;
+    }
+    .uk-navbar-item.uk-logo img {
+      max-height: 50px;
+      margin-right: 10px;
+    }
+    .uk-navbar-nav > li > a {
+      color: #fff !important;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .uk-navbar-nav > li > a:hover {
+      color: var(--accent-color) !important;
+    }
+
+    /* Hero Section - Parallax e Overlay */
+    #hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?abstract,innovation') no-repeat center center/cover;
+    }
+    #hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      color: var(--accent-color);
+    }
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-content .uk-button {
+      background-color: var(--accent-color);
+      border: none;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Sezione About */
+    #about {
+      padding: 80px 0;
+    }
+    #about .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+    #about .about-grid img {
+      flex: 1;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    #about .about-text {
+      flex: 1;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+
+    /* Services Section */
+    #services {
+      padding: 80px 0;
+      background-color: #fff;
+    }
+    #services .section-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .service-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+    .service-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .service-card .card-body {
+      padding: 20px;
+      text-align: center;
+    }
+    .service-card .card-body h5 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    /* Portfolio Section */
+    #portfolio {
+      padding: 80px 0;
+      background-color: #fff;
+    }
+    #portfolio .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .portfolio-item img {
+      width: 100%;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+    .portfolio-item img:hover {
+      transform: scale(1.02);
+    }
+
+    /* Contact Section */
+    #contact {
+      padding: 80px 0;
+      background-color: #fff;
+    }
+    #contact .contact-info {
+      text-align: center;
+    }
+    #contact .contact-info p {
+      font-size: 1.1rem;
+      margin: 0.75rem 0;
+    }
+    #contact .contact-info i {
+      color: var(--primary-color);
+      margin-right: 8px;
+      font-size: 1.5rem;
+    }
+
+    /* Newsletter Section */
+    #newsletter {
+      padding: 80px 0;
+      background-color: #fff;
+    }
+    #newsletter .newsletter-form {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #newsletter .newsletter-form input[type="email"] {
+      max-width: 400px;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--primary-color);
+      border-radius: 4px;
+    }
+    #newsletter .newsletter-form button {
+      margin-left: 10px;
+      padding: 0.5rem 1rem;
+      background-color: var(--primary-color);
+      border: none;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--footer-bg);
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .footer a {
+      color: var(--accent-color);
+      margin: 0 0.5rem;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <header>
+    <nav class="uk-navbar-container" uk-navbar>
+      <div class="uk-navbar-left">
+        <a href="#" class="uk-navbar-item uk-logo">
+          <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo NomeSito">
+          NomeSito
+        </a>
+      </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">Chi Siamo</a></li>
+          <li><a href="#services">Servizi</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contatti</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="uk-section uk-flex uk-flex-middle uk-flex-center hero-body">
+      <div class="hero-content">
+        <h1 class="animate__animated animate__fadeInDown">Benvenuti su NomeSito</h1>
+        <p class="animate__animated animate__fadeInUp animate__delay-1s">Innovazione e Creatività per il Tuo Business Digitale</p>
+        <a href="#about" class="uk-button uk-button-default animate__animated animate__fadeInUp animate__delay-2s">Scopri di più</a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about" class="uk-section">
+    <div class="uk-container section-container">
+      <h2 class="section-title uk-text-center">Chi Siamo</h2>
+      <div class="about-grid">
+        <div class="uk-width-1-2@s">
+          <img src="https://source.unsplash.com/600x400/?office,team" alt="Il nostro team" class="uk-border-rounded">
+        </div>
+        <div class="uk-width-1-2@s about-text">
+          <p>
+            NomeSito è una piattaforma versatile che trasforma le idee in progetti reali. Il nostro team di esperti crea soluzioni digitali innovative, su misura per ogni esigenza aziendale.
+          </p>
+          <p>
+            Puntiamo all'eccellenza e alla creatività, combinando tecnologia e design per offrire risultati straordinari.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Services Section -->
+  <section id="services" class="uk-section uk-section-muted">
+    <div class="uk-container section-container">
+      <h2 class="section-title uk-text-center">I Nostri Servizi</h2>
+      <div class="services-grid">
+        <div class="service-card animate__animated animate__fadeInLeft">
+          <img src="https://source.unsplash.com/400x300/?web,development" alt="Sviluppo Web">
+          <div class="card-body">
+            <h5>Sviluppo Web</h5>
+            <p>Siti web moderni, responsive e personalizzati per il tuo business.</p>
+          </div>
+        </div>
+        <div class="service-card animate__animated animate__fadeInUp animate__delay-1s">
+          <img src="https://source.unsplash.com/400x300/?graphic,design" alt="Graphic Design">
+          <div class="card-body">
+            <h5>Graphic Design</h5>
+            <p>Soluzioni di design creativo per comunicare efficacemente il tuo brand.</p>
+          </div>
+        </div>
+        <div class="service-card animate__animated animate__fadeInRight animate__delay-2s">
+          <img src="https://source.unsplash.com/400x300/?digital,marketing" alt="Digital Marketing">
+          <div class="card-body">
+            <h5>Digital Marketing</h5>
+            <p>E strategie personalizzate per ampliare la tua presenza online.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="uk-section">
+    <div class="uk-container section-container">
+      <h2 class="section-title uk-text-center">Portfolio</h2>
+      <div class="portfolio-grid uk-child-width-1-3@m uk-grid-match" uk-grid>
+        <div class="portfolio-item animate__animated animate__zoomIn">
+          <img src="https://source.unsplash.com/600x400/?project,creative" alt="Progetto 1">
+        </div>
+        <div class="portfolio-item animate__animated animate__zoomIn animate__delay-1s">
+          <img src="https://source.unsplash.com/600x400/?website,design" alt="Progetto 2">
+        </div>
+        <div class="portfolio-item animate__animated animate__zoomIn animate__delay-2s">
+          <img src="https://source.unsplash.com/600x400/?app,development" alt="Progetto 3">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact" class="uk-section">
+    <div class="uk-container section-container">
+      <h2 class="section-title uk-text-center">Contatti</h2>
+      <div class="contact-info uk-text-center">
+        <p><i class="fas fa-map-marker-alt"></i> Via Esempio, 123 - Città</p>
+        <p><i class="fas fa-phone"></i> +39 012 3456789</p>
+        <p><i class="fas fa-envelope"></i> info@nomesito.com</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="uk-section uk-section-primary">
+    <div class="uk-container section-container">
+      <h2 class="section-title uk-text-center" style="color: #fff;">Newsletter</h2>
+      <p class="uk-text-center" style="color: #fff;">Iscriviti per ricevere aggiornamenti e offerte esclusive!</p>
+      <div class="newsletter-form uk-text-center">
+        <div class="uk-inline">
+          <input class="uk-input uk-form-width-medium" type="email" placeholder="nome@esempio.com" required>
+          <button class="uk-button uk-button-default">Iscriviti</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="uk-container section-container">
+      <p>© 2025 NomeSito - Tutti i diritti riservati</p>
+      <p>
+        Seguici:
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram icon"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook icon"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter icon"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin icon"></i></a>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- UIkit Dropdown/Burger Script (già abilitato da UIkit) -->
+  <script>
+    // Aggiungi uno scroll spy per attivare animazioni se necessario (UIkit ha uk-scrollspy)
+    UIkit.util.ready(function(){
+      UIkit.util.on('.uk-navbar-burger', 'click', function(){
+        document.querySelector('.uk-navbar-menu').classList.toggle('uk-active');
+      });
+    });
+  </script>
+  
+</body>
+</html>

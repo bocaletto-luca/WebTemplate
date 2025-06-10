@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FilmFlix - Il Tuo Mondo di Film</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- Font Awesome per icone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+        integrity="sha512-pamI50S5+viGoeTWfKU9IrsW2wIhLrPu6WQ+XNsExGC80HHG7cp/sPqHSaw0X0RHB+LLI1ghJNyGlylrh1kM3g==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    /* Variabili personalizzabili */
+    :root {
+      --primary-color: #e50914;  /* Rosso Netflix */
+      --secondary-color: #141414; /* Sfondo scuro */
+      --accent-color: #fff;        /* Testo bianco */
+    }
+
+    /* Stili di base e reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background-color: var(--secondary-color); color: var(--accent-color); font-family: 'Roboto', sans-serif; }
+    
+    /* Navbar */
+    header {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: rgba(20,20,20,0.9);
+      padding: 1rem 2rem;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    header .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    header .nav-links a {
+      text-decoration: none;
+      color: var(--accent-color);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    header .nav-links a:hover {
+      color: var(--primary-color);
+    }
+    /* Mobile menu */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--primary-color);
+    }
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: rgba(20,20,20,0.95);
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      padding: 1rem;
+    }
+    .mobile-menu a {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--primary-color);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      header .nav-links { display: none; }
+      .hamburger { display: block; }
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?cinema,film') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: var(--accent-color);
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+      animation: fadeInDown 1s;
+    }
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 5px var(--accent-color);
+      animation: fadeInUp 1s;
+    }
+    .hero-content .btn {
+      padding: 0.8rem 1.5rem;
+      background-color: var(--primary-color);
+      border: none;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      animation: fadeInUp 1s;
+    }
+    .hero-content .btn:hover {
+      background-color: #f40612;
+    }
+    
+    /* Horizontal Movie Row */
+    .movie-row {
+      margin: 2rem 0;
+    }
+    .movie-row h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      padding-left: 1rem;
+      font-family: 'Oswald', sans-serif;
+      color: var(--primary-color);
+    }
+    .row-container {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 0 1rem;
+    }
+    .row-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    .row-container::-webkit-scrollbar-thumb {
+      background-color: var(--primary-color);
+      border-radius: 4px;
+    }
+    .movie {
+      flex: 0 0 auto;
+      width: 200px;
+      height: 300px;
+      background: #333;
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.3s;
+    }
+    .movie:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #141414;
+      padding: 2rem 1rem;
+      text-align: center;
+      border-top: 1px solid #333;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: var(--primary-color);
+      margin: 0 0.5rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    footer a:hover {
+      color: var(--accent-color);
+    }
+    
+  </style>
+</head>
+<body>
+  
+  <!-- Header / Navbar -->
+  <header>
+    <div class="container flex justify-between items-center">
+      <div class="logo">FilmFlix</div>
+      <nav class="nav-links hidden md:flex">
+        <a href="#hero">Home</a>
+        <a href="#movies">Film</a>
+        <a href="#series">Serie TV</a>
+        <a href="#new">Nuovi Arrivi</a>
+        <a href="#mylist">La Mia Lista</a>
+      </nav>
+      <button id="mobile-menu-button" class="hamburger md:hidden">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu hidden">
+      <a href="#hero">Home</a>
+      <a href="#movies">Film</a>
+      <a href="#series">Serie TV</a>
+      <a href="#new">Nuovi Arrivi</a>
+      <a href="#mylist">La Mia Lista</a>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero flex items-center justify-center">
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Il Mondo dei Film</h1>
+      <p class="animate__animated animate__fadeInUp animate__delay-1s">Scopri, guarda e immergiti in un'esperienza cinematografica unica</p>
+      <a href="#movies" class="btn animate__animated animate__fadeInUp animate__delay-2s">Guarda Ora</a>
+    </div>
+  </section>
+  
+  <!-- Movies Section -->
+  <section id="movies" class="movie-row">
+    <div class="container">
+      <h2>Film Popolari</h2>
+      <div class="row-container">
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?movie,action');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?movie,drama');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?movie,comedy');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?movie,horror');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?movie,sci-fi');"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Series Section -->
+  <section id="series" class="movie-row">
+    <div class="container">
+      <h2>Serie TV</h2>
+      <div class="row-container">
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?series,drama');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?series,sci-fi');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?series,comedy');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?series,action');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?series,thriller');"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- New Arrivals Section -->
+  <section id="new" class="movie-row">
+    <div class="container">
+      <h2>Nuovi Arrivi</h2>
+      <div class="row-container">
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?movie,thriller');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?movie,animation');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?movie,romance');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?movie,documentary');"></div>
+        <div class="movie" style="background-image: url('https://source.unsplash.com/200x300/?movie,adventure');"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section -->
+  <footer class="py-8">
+    <div class="container text-center">
+      <p>&copy; 2025 FilmFlix - Tutti i diritti riservati.</p>
+      <p class="mt-4">
+        Seguici:
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </p>
+    </div>
+  </footer>
+  
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

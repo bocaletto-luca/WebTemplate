@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NomeSito - Innovazione e Creatività</title>
+  
+  <!-- Bulma CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <!-- Animate.css per animazioni -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <!-- Google Fonts: Raleway per titoli, Open Sans per il corpo -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Variabili CSS per personalizzare colori e tipografia */
+    :root {
+      --primary-color: #00BFFF;       /* Blu intenso */
+      --accent-color: #FF4500;        /* Rosso/arancione per accenti */
+      --background-color: #F0F8FF;    /* Azzurro pallido */
+      --text-color: #333333;
+      --navbar-bg: rgba(0, 191, 255, 0.9);
+      --hero-overlay: rgba(0, 0, 0, 0.5);
+      --footer-bg: #333333;
+    }
+    
+    /* Stili globali */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, .section-title {
+      font-family: 'Raleway', sans-serif;
+      margin-bottom: 1rem;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background-color: var(--navbar-bg);
+    }
+    .navbar-brand .logo-image {
+      max-height: 50px;
+      margin-right: 10px;
+    }
+    .navbar-item {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #fff !important;
+    }
+    .navbar-item:hover {
+      color: var(--accent-color) !important;
+    }
+    
+    /* Hero Section: Parallax */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?abstract,innovation') no-repeat center center/cover;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--hero-overlay);
+      z-index: 1;
+    }
+    .hero-body {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero-body .title {
+      font-size: 4rem;
+      color: var(--accent-color);
+      animation: fadeInDown 1s;
+    }
+    .hero-body .subtitle {
+      font-size: 1.5rem;
+      animation: fadeInUp 1s;
+      margin-bottom: 2rem;
+    }
+    .hero-body .button {
+      background-color: var(--accent-color);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1.2rem;
+      color: var(--text-color);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .hero-body .button:hover {
+      background-color: darken(var(--accent-color), 10%);
+    }
+    
+    /* Sezioni generali */
+    section {
+      padding: 80px 0;
+    }
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    /* About Section */
+    #about .columns {
+      align-items: center;
+    }
+    #about .about-image img {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    #about .about-text {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+    
+    /* Services Section */
+    #services .columns {
+      flex-wrap: wrap;
+    }
+    .service-card {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      margin-bottom: 1.5rem;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+    .service-card img {
+      object-fit: cover;
+      width: 100%;
+      height: 200px;
+    }
+    .service-card .card-content {
+      padding: 1rem;
+      text-align: center;
+    }
+    .service-card .card-content h5 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Portfolio Section */
+    #portfolio .columns {
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .portfolio-item img {
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .portfolio-item img:hover {
+      transform: scale(1.02);
+    }
+    
+    /* Contact Section */
+    #contact .content {
+      text-align: center;
+    }
+    #contact .content p {
+      font-size: 1.1rem;
+      margin: 0.75rem 0;
+    }
+    #contact .content i {
+      color: var(--primary-color);
+      margin-right: 8px;
+      font-size: 1.5rem;
+    }
+    
+    /* Newsletter Section */
+    #newsletter .field {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    #newsletter .input {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: var(--footer-bg);
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .footer .icon {
+      color: var(--accent-color);
+      margin: 0 0.5rem;
+      font-size: 1.5rem;
+    }
+    
+    /* Animazioni personalizzate (keyframes) */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+          <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo NomeSito">
+          NomeSito
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="navMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="#hero">Home</a>
+          <a class="navbar-item" href="#about">Chi Siamo</a>
+          <a class="navbar-item" href="#services">Servizi</a>
+          <a class="navbar-item" href="#portfolio">Portfolio</a>
+          <a class="navbar-item" href="#contact">Contatti</a>
+          <a class="navbar-item" href="#newsletter">Newsletter</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title animate__animated animate__fadeInDown">
+          Benvenuti su NomeSito
+        </h1>
+        <p class="subtitle animate__animated animate__fadeInUp animate__delay-1s">
+          Innovazione e Creatività per il Tuo Business Digitale
+        </p>
+        <a href="#about" class="button is-large animate__animated animate__fadeInUp animate__delay-2s">
+          Scopri di più
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="title is-2 has-text-centered section-title">Chi Siamo</h2>
+      <div class="columns is-vcentered">
+        <div class="column is-half">
+          <figure class="image is-4by3">
+            <img src="https://source.unsplash.com/600x400/?office,team" alt="Il nostro team">
+          </figure>
+        </div>
+        <div class="column is-half">
+          <div class="about-text">
+            <p>
+              NomeSito è una piattaforma versatile che mette a disposizione soluzioni digitali innovative per aziende e professionisti. Il nostro team di esperti lavora con dedizione per trasformare le tue idee in progetti di successo.
+            </p>
+            <p>
+              Crediamo nell'innovazione, nella creatività e nella qualità, offrendo strumenti su misura per ogni esigenza.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Services Section -->
+  <section id="services" class="section">
+    <div class="container">
+      <h2 class="title is-2 has-text-centered section-title">I Nostri Servizi</h2>
+      <div class="columns">
+        <div class="column">
+          <div class="card service-card animate__animated animate__fadeInLeft">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="https://source.unsplash.com/400x300/?web,development" alt="Sviluppo Web">
+              </figure>
+            </div>
+            <div class="card-content">
+              <h5 class="title is-5">Sviluppo Web</h5>
+              <p>Siti web moderni, responsive e personalizzati.</p>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card service-card animate__animated animate__fadeInUp animate__delay-1s">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="https://source.unsplash.com/400x300/?graphic,design" alt="Design Grafico">
+              </figure>
+            </div>
+            <div class="card-content">
+              <h5 class="title is-5">Design Grafico</h5>
+              <p>Soluzioni visive uniche per comunicare il tuo brand.</p>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card service-card animate__animated animate__fadeInRight animate__delay-2s">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="https://source.unsplash.com/400x300/?digital,marketing" alt="Digital Marketing">
+              </figure>
+            </div>
+            <div class="card-content">
+              <h5 class="title is-5">Digital Marketing</h5>
+              <p>Strategie digitali per aumentare la tua visibilità online.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="section">
+    <div class="container">
+      <h2 class="title is-2 has-text-centered section-title">Portfolio</h2>
+      <div class="columns is-multiline">
+        <div class="column is-one-third portfolio-item animate__animated animate__zoomIn">
+          <figure class="image is-4by3">
+            <img src="https://source.unsplash.com/600x400/?project,creative" alt="Progetto 1">
+          </figure>
+        </div>
+        <div class="column is-one-third portfolio-item animate__animated animate__zoomIn animate__delay-1s">
+          <figure class="image is-4by3">
+            <img src="https://source.unsplash.com/600x400/?website,design" alt="Progetto 2">
+          </figure>
+        </div>
+        <div class="column is-one-third portfolio-item animate__animated animate__zoomIn animate__delay-2s">
+          <figure class="image is-4by3">
+            <img src="https://source.unsplash.com/600x400/?app,development" alt="Progetto 3">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="title is-2 has-text-centered section-title">Contatti</h2>
+      <div class="content has-text-centered contact-info">
+        <p><i class="fas fa-map-marker-alt"></i> Via Esempio, 123 - Città</p>
+        <p><i class="fas fa-phone"></i> +39 012 3456789</p>
+        <p><i class="fas fa-envelope"></i> info@nomesito.com</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="section">
+    <div class="container">
+      <h2 class="title is-2 has-text-centered section-title">Newsletter</h2>
+      <p class="has-text-centered">Iscriviti per ricevere aggiornamenti e offerte speciali!</p>
+      <div class="newsletter-form has-text-centered">
+        <div class="field has-addons is-justify-content-center">
+          <div class="control">
+            <input class="input" type="email" placeholder="nome@esempio.com" required>
+          </div>
+          <div class="control">
+            <button class="button is-primary">Iscriviti</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 NomeSito - Tutti i diritti riservati</p>
+      <p>
+        Seguici:
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Bulma Navbar Burger Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Navbar burger toggle
+      const navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+      if (navbarBurgers.length > 0) {
+        navbarBurgers.forEach( el => {
+          el.addEventListener('click', () => {
+            const target = el.dataset.target;
+            const targetEl = document.getElementById(target);
+            el.classList.toggle('is-active');
+            targetEl.classList.toggle('is-active');
+          });
+        });
+      }
+      
+      // Navbar scroll effect: aggiungi classe 'scrolled' se scrollY > 50
+      window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('nav');
+        if(window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

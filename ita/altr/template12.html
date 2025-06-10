@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameNexus - Il Mondo dei Videogames</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Animate.css per animazioni -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  
+  <!-- FontAwesome per icone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+        integrity="sha512-pamI50S5+viGoeTWfKU9IrsW2wIhLrPu6WQ+XNsExGC80HHG7cp/sPqHSaw0X0RHB+LLI1ghJNyGlylrh1kM3g==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Google Fonts: Montserrat per titoli, Roboto per il corpo -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Variabili di base */
+    :root {
+      --primary-color: #e50914;        /* Rosso, richiamo a Netflix */
+      --secondary-color: #141414;      /* Sfondo scuro */
+      --accent-color: #fff;            /* Testo e dettagli in bianco */
+      --font-title: 'Montserrat', sans-serif;
+      --font-body: 'Roboto', sans-serif;
+    }
+    
+    /* Stili globali */
+    body {
+      background-color: var(--secondary-color);
+      color: var(--accent-color);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+    h1, h2, h3, .section-title {
+      font-family: var(--font-title);
+      margin-bottom: 1rem;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background-color: rgba(20, 20, 20, 0.9);
+      padding: 1rem 2rem;
+    }
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-color) !important;
+    }
+    .navbar-nav .nav-link {
+      color: var(--accent-color) !important;
+      text-transform: uppercase;
+      letter-spacing: .05rem;
+      margin-left: 1rem;
+    }
+    .navbar-nav .nav-link:hover {
+      color: var(--primary-color) !important;
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?videogames,arcade') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+      animation: fadeInDown 1s;
+    }
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 5px var(--accent-color);
+      animation: fadeInUp 1s;
+    }
+    .hero-content .btn {
+      padding: 0.8rem 1.5rem;
+      background-color: var(--primary-color);
+      border: none;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      animation: fadeInUp 1s;
+    }
+    .hero-content .btn:hover {
+      background-color: #f40612;
+    }
+    
+    /* Sezioni generali */
+    section {
+      padding: 80px 0;
+    }
+    .container-custom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      text-decoration: underline;
+      color: var(--primary-color);
+      text-shadow: 2px 2px 2px #000;
+    }
+    
+    /* About Section */
+    #about .row {
+      align-items: center;
+    }
+    #about img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+    }
+    #about .about-text {
+      font-size: 1.2rem;
+      color: var(--accent-color);
+    }
+    
+    /* Latest Games Section */
+    #latest-games .card {
+      background-color: #141414;
+      color: var(--accent-color);
+      border: none;
+    }
+    #latest-games .card-img-top {
+      height: 250px;
+      object-fit: cover;
+    }
+    #latest-games .card-title {
+      font-size: 1.25rem;
+      color: var(--primary-color);
+    }
+    
+    /* Horizontal scroll for game rows */
+    .movie-row {
+      margin: 2rem 0;
+    }
+    .row-scroll {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 0 1rem;
+    }
+    .row-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+    .row-scroll::-webkit-scrollbar-thumb {
+      background-color: var(--primary-color);
+      border-radius: 4px;
+    }
+    .game-card {
+      flex: 0 0 auto;
+      width: 200px;
+      height: 300px;
+      background: #333;
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.3s;
+    }
+    .game-card:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Platforms Section */
+    #platforms .col img {
+      width: 150px;
+      border-radius: 50%;
+      border: 3px solid var(--primary-color);
+      transition: transform 0.3s;
+    }
+    #platforms .col img:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Contact Section */
+    #contact .contact-info {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    #contact .contact-info p {
+      margin: 0.5rem 0;
+    }
+    #contact .contact-info i {
+      color: var(--primary-color);
+      margin-right: 0.5rem;
+      font-size: 1.5rem;
+    }
+    
+    /* Newsletter Section */
+    #newsletter .newsletter-form {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    #newsletter .newsletter-form input[type="email"] {
+      padding: 0.8rem;
+      border: 2px solid var(--primary-color);
+      border-radius: 4px;
+      width: 300px;
+      max-width: 80%;
+      background: #141414;
+      color: var(--primary-color);
+    }
+    #newsletter .newsletter-form button {
+      padding: 0.8rem 1.2rem;
+      background-color: var(--primary-color);
+      border: none;
+      color: #141414;
+      border-radius: 4px;
+      margin-left: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #newsletter .newsletter-form button:hover {
+      background-color: var(--accent-color);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #000;
+      padding: 1.5rem 0;
+      text-align: center;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
+    }
+    footer a {
+      color: var(--primary-color);
+      margin: 0 0.5rem;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    footer a:hover {
+      color: var(--accent-color);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 3rem;
+      }
+      .hero-content p {
+        font-size: 1.2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="logo d-flex align-items-center">
+        <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo GameNexus">
+        <span>GameNexus</span>
+      </div>
+      <!-- Desktop Menu -->
+      <nav class="d-none d-md-block">
+        <ul class="d-flex mb-0">
+          <li class="me-3"><a href="#hero">Home</a></li>
+          <li class="me-3"><a href="#about">About</a></li>
+          <li class="me-3"><a href="#latest-games">Latest Games</a></li>
+          <li class="me-3"><a href="#platforms">Platforms</a></li>
+          <li class="me-3"><a href="#news">News</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <!-- Mobile Menu Toggler -->
+      <button id="mobile-menu-button" class="d-md-none btn p-0">
+        <i class="fas fa-bars fa-2x"></i>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu" class="mobile-menu hidden">
+      <ul>
+        <li><a href="#hero" class="d-block">Home</a></li>
+        <li><a href="#about" class="d-block">About</a></li>
+        <li><a href="#latest-games" class="d-block">Latest Games</a></li>
+        <li><a href="#platforms" class="d-block">Platforms</a></li>
+        <li><a href="#news" class="d-block">News</a></li>
+        <li><a href="#contact" class="d-block">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero d-flex align-items-center justify-content-center">
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Welcome to GameNexus</h1>
+      <p class="animate__animated animate__fadeInUp animate__delay-1s">Your Ultimate Portal to the World of Video Games</p>
+      <a href="#latest-games" class="btn animate__animated animate__fadeInUp animate__delay-2s">Explore Games</a>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <h2 class="section-title text-center">About GameNexus</h2>
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <img src="https://source.unsplash.com/600x400/?gaming,office" alt="Our Team" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6 about-text mt-4 mt-md-0">
+          <p class="lead">GameNexus is the online hub for gamers and enthusiasts alike. We bring you the latest reviews, news, and insights about the most anticipated video games across all platforms.</p>
+          <p>Our mission is to connect the gaming community while delivering high-quality content and recommendations that help you stay ahead in the gaming world.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Latest Games Section -->
+  <section id="latest-games" class="py-5">
+    <div class="container">
+      <h2 class="section-title text-center">Latest Games</h2>
+      <div class="row g-3">
+        <!-- Card Game 1 -->
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="card bg-dark border-0 animate__animated animate__fadeInUp">
+            <img src="https://source.unsplash.com/400x250/?videogame,action" class="card-img-top" alt="Action Game">
+            <div class="card-body">
+              <h5 class="card-title" style="color: var(--primary-color);">Action Frenzy</h5>
+              <p class="card-text">A thrilling blend of combat and adventure.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card Game 2 -->
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="card bg-dark border-0 animate__animated animate__fadeInUp animate__delay-1s">
+            <img src="https://source.unsplash.com/400x250/?videogame,arcade" class="card-img-top" alt="Arcade Game">
+            <div class="card-body">
+              <h5 class="card-title" style="color: var(--primary-color);">Retro Arcade</h5>
+              <p class="card-text">Classic arcade fun with a modern twist.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card Game 3 -->
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="card bg-dark border-0 animate__animated animate__fadeInUp animate__delay-2s">
+            <img src="https://source.unsplash.com/400x250/?videogame,strategy" class="card-img-top" alt="Strategy Game">
+            <div class="card-body">
+              <h5 class="card-title" style="color: var(--primary-color);">Strategy Master</h5>
+              <p class="card-text">Plan, execute, and conquer in epic battles.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card Game 4 -->
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="card bg-dark border-0 animate__animated animate__fadeInUp animate__delay-3s">
+            <img src="https://source.unsplash.com/400x250/?videogame,rpg" class="card-img-top" alt="RPG Game">
+            <div class="card-body">
+              <h5 class="card-title" style="color: var(--primary-color);">Epic Quest</h5>
+              <p class="card-text">Embark on a grand adventure full of magic and mystery.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Platforms Section -->
+  <section id="platforms" class="py-5 bg-dark">
+    <div class="container text-center">
+      <h2 class="section-title">Platforms</h2>
+      <div class="row">
+        <div class="col-6 col-md-3 mb-4">
+          <img src="https://source.unsplash.com/200x200/?playstation" alt="PlayStation" class="img-fluid rounded-circle mb-2">
+          <h5>PlayStation</h5>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+          <img src="https://source.unsplash.com/200x200/?xbox" alt="Xbox" class="img-fluid rounded-circle mb-2">
+          <h5>Xbox</h5>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+          <img src="https://source.unsplash.com/200x200/?pc,gaming" alt="PC Gaming" class="img-fluid rounded-circle mb-2">
+          <h5>PC Gaming</h5>
+        </div>
+        <div class="col-6 col-md-3 mb-4">
+          <img src="https://source.unsplash.com/200x200/?nintendo" alt="Nintendo" class="img-fluid rounded-circle mb-2">
+          <h5>Nintendo</h5>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- News Section -->
+  <section id="news" class="py-5">
+    <div class="container">
+      <h2 class="section-title text-center">Latest News</h2>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="card bg-dark animate__animated animate__fadeInUp">
+            <img src="https://source.unsplash.com/400x250/?videogame,news" class="card-img-top" alt="News 1">
+            <div class="card-body">
+              <h5 class="card-title" style="color: var(--primary-color);">New Trailer Out Now</h5>
+              <p class="card-text">Check out the latest trailer for the upcoming blockbuster game.</p>
+              <a href="#" class="stretched-link text-primary">Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-dark animate__animated animate__fadeInUp animate__delay-1s">
+            <img src="https://source.unsplash.com/400x250/?videogame,release" class="card-img-top" alt="News 2">
+            <div class="card-body">
+              <h5 class="card-title" style="color: var(--primary-color);">Game Update 2.0</h5>
+              <p class="card-text">Major updates and new features have been introduced.</p>
+              <a href="#" class="stretched-link text-primary">Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-dark animate__animated animate__fadeInUp animate__delay-2s">
+            <img src="https://source.unsplash.com/400x250/?videogame,award" class="card-img-top" alt="News 3">
+            <div class="card-body">
+              <h5 class="card-title" style="color: var(--primary-color);">Game Awards 2025</h5>
+              <p class="card-text">Our top picks from the industry's biggest game awards.</p>
+              <a href="#" class="stretched-link text-primary">Read more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact" class="py-5 bg-dark">
+    <div class="container text-center">
+      <h2 class="section-title">Contact Us</h2>
+      <div class="contact-info">
+        <p><i class="fas fa-map-marker-alt"></i> 123 Gaming Avenue, GameCity</p>
+        <p class="mt-3"><i class="fas fa-phone"></i> +1 234 567 890</p>
+        <p class="mt-3"><i class="fas fa-envelope"></i> contact@gamenexus.com</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="py-5 bg-secondary">
+    <div class="container text-center">
+      <h2 class="section-title">Newsletter</h2>
+      <p class="lead">Subscribe to get the latest updates and offers!</p>
+      <div class="newsletter-form d-flex justify-content-center">
+        <input type="email" class="form-control w-50" placeholder="yourmail@example.com" required>
+        <button class="btn btn-primary ms-2">Subscribe</button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section -->
+  <footer class="py-4 bg-black">
+    <div class="container text-center">
+      <p>&copy; 2025 GameNexus. All rights reserved.</p>
+      <p class="mt-3">
+        Follow us:
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram me-2"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook me-2"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter me-2"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Mobile menu toggle script
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

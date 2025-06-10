@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NomeSito - Stile Anni '80</title>
+  
+  <!-- Google Fonts: Utilizziamo "Press Start 2P" per i titoli e "Roboto Mono" per il corpo -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet">
+  
+  <!-- Animate.css per animazioni -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  
+  <!-- FontAwesome per icone -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    /* Palette e variabili */
+    :root {
+      --bg-color: #111;               /* Sfondo scuro */
+      --primary-color: #00FFFF;         /* Neon ciano */
+      --secondary-color: #FF00FF;       /* Neon magenta per accenti */
+      --accent-color: #FFD700;          /* Accento dorato */
+      --text-color: #FFFFFF;
+      --font-title: 'Press Start 2P', cursive;
+      --font-body: 'Roboto Mono', monospace;
+    }
+
+    /* Reset e stili base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+    h1, h2, h3, .title {
+      font-family: var(--font-title);
+    }
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    a:hover {
+      color: var(--secondary-color);
+    }
+    
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      border-bottom: 2px solid var(--primary-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+    .navbar .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+    }
+    .navbar .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+    }
+    .navbar nav ul li {
+      margin-left: 1.5rem;
+    }
+    .navbar nav ul li a {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?neon,80s') no-repeat center center/cover;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+      animation: fadeInDown 1s;
+    }
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 5px var(--secondary-color);
+      animation: fadeInUp 1s;
+    }
+    .hero-content .btn {
+      padding: 0.8rem 1.5rem;
+      background-color: var(--primary-color);
+      border: none;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .hero-content .btn:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    /* Sections */
+    section {
+      padding: 80px 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 5px var(--primary-color);
+    }
+    
+    /* About Section */
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+    .about img {
+      max-width: 500px;
+      width: 100%;
+      border: 5px solid var(--primary-color);
+      border-radius: 8px;
+      box-shadow: 0 0 15px var(--primary-color);
+    }
+    .about .about-text {
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+      flex: 1;
+    }
+    
+    /* Services Section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background-color: rgba(0,0,0,0.8);
+      border: 2px solid var(--primary-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px var(--primary-color);
+    }
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    .service-card p {
+      font-size: 1rem;
+      color: #fff;
+    }
+    
+    /* Portfolio Section */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .portfolio-grid img {
+      width: 100%;
+      border: 4px solid var(--secondary-color);
+      border-radius: 8px;
+      transition: transform 0.3s;
+    }
+    .portfolio-grid img:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Contact Section */
+    .contact-info {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    .contact-info p {
+      margin: 0.5rem 0;
+    }
+    .contact-info i {
+      color: var(--primary-color);
+      margin-right: 0.5rem;
+      font-size: 1.5rem;
+    }
+    
+    /* Newsletter Section */
+    .newsletter-form {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .newsletter-form input[type="email"] {
+      padding: 0.8rem;
+      border: 2px solid var(--primary-color);
+      border-radius: 4px;
+      width: 300px;
+      max-width: 80%;
+      background: #111;
+      color: var(--primary-color);
+    }
+    .newsletter-form button {
+      padding: 0.8rem 1.2rem;
+      background-color: var(--primary-color);
+      border: none;
+      color: #111;
+      border-radius: 4px;
+      margin-left: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .newsletter-form button:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: #000;
+      padding: 1.5rem 0;
+      text-align: center;
+      font-size: 1rem;
+      color: var(--primary-color);
+    }
+    .footer a {
+      margin: 0 0.5rem;
+      color: var(--accent-color);
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: text-decoration 0.3s;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 3rem;
+      }
+      .hero-content p {
+        font-size: 1.2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container flex justify-between items-center">
+      <div class="logo flex items-center">
+        <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo NomeSito">
+        <span>NomeSito</span>
+      </div>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">Chi Siamo</a></li>
+          <li><a href="#services">Servizi</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contatti</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero flex items-center justify-center">
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Benvenuti su NomeSito</h1>
+      <p class="animate__animated animate__fadeInUp animate__delay-1s">Rivivi il passato con lo stile degli anni '80</p>
+      <a href="#about" class="btn animate__animated animate__fadeInUp animate__delay-2s">Scopri di più</a>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about" class="py-20">
+    <div class="container">
+      <h2 class="section-title centered">Chi Siamo</h2>
+      <div class="about flex flex-wrap items-center gap-8">
+        <img src="https://source.unsplash.com/600x400/?retro,office" alt="Il nostro team">
+        <div class="about-text">
+          <p>
+            NomeSito è un portale che celebra la cultura e lo stile degli anni '80. Amanti della nostalgia e del design retrò, il nostro team trasforma idee vintage in progetti moderni.
+          </p>
+          <p>
+            Siamo appassionati di tecnologia, musica e arte dell'epoca, e portiamo questo spirito unico in ogni progetto realizzato.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Services Section -->
+  <section id="services" class="py-20 bg-gray-900">
+    <div class="container">
+      <h2 class="section-title centered">I Nostri Servizi</h2>
+      <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="service-card animate__animated animate__fadeInLeft">
+          <h3>Design Retrò</h3>
+          <p>Realizziamo progetti grafici ispirati agli anni '80, con colori neon e tipografia vintage.</p>
+        </div>
+        <div class="service-card animate__animated animate__fadeInUp animate__delay-1s">
+          <h3>Sviluppo Vintage</h3>
+          <p>Costruiamo siti web che combinano tecnologie moderne e estetica rétro.</p>
+        </div>
+        <div class="service-card animate__animated animate__fadeInRight animate__delay-2s">
+          <h3>Marketing Retro</h3>
+          <p>Strategie di comunicazione che fondono il passato e il presente per un impatto unico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="py-20">
+    <div class="container">
+      <h2 class="section-title centered">Portfolio</h2>
+      <div class="portfolio-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="portfolio-item animate__animated animate__zoomIn">
+          <img src="https://source.unsplash.com/600x400/?retro,design" alt="Progetto 1">
+        </div>
+        <div class="portfolio-item animate__animated animate__zoomIn animate__delay-1s">
+          <img src="https://source.unsplash.com/600x400/?vintage,website" alt="Progetto 2">
+        </div>
+        <div class="portfolio-item animate__animated animate__zoomIn animate__delay-2s">
+          <img src="https://source.unsplash.com/600x400/?neon,retro" alt="Progetto 3">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-gray-800">
+    <div class="container text-center">
+      <h2 class="section-title">Contatti</h2>
+      <div class="contact-info">
+        <p><i class="fas fa-map-marker-alt"></i> Via Nostalgia, 1980 - RetroCity</p>
+        <p><i class="fas fa-phone"></i> +39 0123 456789</p>
+        <p><i class="fas fa-envelope"></i> info@nomesito.com</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="py-20 bg-black">
+    <div class="container text-center">
+      <h2 class="section-title">Newsletter</h2>
+      <p>Iscriviti per ricevere aggiornamenti e offerte in perfetto stile anni '80!</p>
+      <div class="newsletter-form">
+        <input type="email" class="border border-cyan-500 rounded-l px-4 py-2 w-full max-w-xs inline-block" placeholder="nome@esempio.com" required>
+        <button class="bg-cyan-500 text-black px-4 py-2 rounded-r inline-block">Iscriviti</button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section -->
+  <footer class="footer bg-black">
+    <div class="container text-center">
+      <p>&copy; 2025 NomeSito - Tutti i diritti riservati</p>
+      <p class="mt-4">
+        Seguici:
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

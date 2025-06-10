@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NomeSito - Stile Anni '80</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Animate.css per animazioni -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- Font Awesome per icone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-pamI50S5+viGoeTWfKU9IrsW2wIhLrPu6WQ+XNsExGC80HHG7cp/sPqHSaw0X0RHB+LLI1ghJNyGlylrh1kM3g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    /* Variabili CSS per personalizzare la palette e la tipografia */
+    :root {
+      --bg-color: #111;               /* Sfondo predominante scuro */
+      --primary-color: #00FFFF;         /* Neon ciano */
+      --secondary-color: #FF00FF;       /* Neon magenta */
+      --accent-color: #FFD700;          /* Accento dorato */
+      --text-color: #FFF;
+      --font-title: 'Press Start 2P', cursive;
+      --font-body: 'Roboto Mono', monospace;
+    }
+    
+    /* Reset e stili di base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, .title {
+      font-family: var(--font-title);
+    }
+    
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    a:hover {
+      color: var(--secondary-color);
+    }
+    
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 50;
+      background: rgba(0,0,0,0.85);
+      border-bottom: 2px solid var(--primary-color);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      color: var(--primary-color);
+      font-family: var(--font-title);
+    }
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    /* Mobile menu (hidden by default) */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: rgba(0,0,0,0.95);
+      padding: 1rem;
+    }
+    .mobile-menu a {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--primary-color);
+    }
+    /* Hamburger */
+    .hamburger {
+      cursor: pointer;
+      display: block;
+    }
+    /* Responsive */
+    @media(min-width: 768px) {
+      .mobile-menu,
+      .hamburger {
+        display: none;
+      }
+      .nav-links {
+        display: flex;
+      }
+    }
+    @media(max-width: 767px) {
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu {
+        display: flex;
+      }
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?neon,80s') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+      animation: fadeInDown 1s;
+    }
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 5px var(--secondary-color);
+      animation: fadeInUp 1s;
+    }
+    .btn {
+      padding: 0.8rem 1.5rem;
+      background-color: var(--primary-color);
+      border: none;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    /* Generali per le sezioni */
+    section {
+      padding: 80px 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 5px var(--primary-color);
+    }
+    
+    /* About Section */
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    .about img {
+      max-width: 500px;
+      width: 100%;
+      border: 5px solid var(--primary-color);
+      border-radius: 8px;
+      box-shadow: 0 0 15px var(--primary-color);
+    }
+    .about-text {
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+      flex: 1;
+    }
+    
+    /* Services Section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background-color: rgba(0,0,0,0.8);
+      border: 2px solid var(--primary-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px var(--primary-color);
+    }
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    .service-card p {
+      font-size: 1rem;
+      color: #fff;
+    }
+    
+    /* Portfolio Section */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .portfolio-grid img {
+      width: 100%;
+      border: 4px solid var(--secondary-color);
+      border-radius: 8px;
+      transition: transform 0.3s;
+    }
+    .portfolio-grid img:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Contact Section */
+    .contact-info {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    .contact-info p {
+      margin: 0.5rem 0;
+    }
+    .contact-info i {
+      color: var(--primary-color);
+      margin-right: 0.5rem;
+      font-size: 1.5rem;
+    }
+    
+    /* Newsletter Section */
+    .newsletter-form {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .newsletter-form input[type="email"] {
+      padding: 0.8rem;
+      border: 2px solid var(--primary-color);
+      border-radius: 4px;
+      width: 300px;
+      max-width: 80%;
+      background: #111;
+      color: var(--primary-color);
+    }
+    .newsletter-form button {
+      padding: 0.8rem 1.2rem;
+      background-color: var(--primary-color);
+      border: none;
+      color: #111;
+      border-radius: 4px;
+      margin-left: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .newsletter-form button:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: #000;
+      padding: 1.5rem 0;
+      text-align: center;
+      font-size: 1rem;
+      color: var(--primary-color);
+    }
+    .footer a {
+      margin: 0 0.5rem;
+      color: var(--accent-color);
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: text-decoration 0.3s;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 3rem;
+      }
+      .hero-content p {
+        font-size: 1.2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+      .navbar .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container flex justify-between items-center">
+      <div class="logo flex items-center">
+        <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo NomeSito">
+        <span>NomeSito</span>
+      </div>
+      <!-- Desktop Menu: hidden on mobile -->
+      <nav class="hidden md:block">
+        <ul class="flex space-x-6">
+          <li><a href="#hero" class="uppercase tracking-wide">Home</a></li>
+          <li><a href="#about" class="uppercase tracking-wide">Chi Siamo</a></li>
+          <li><a href="#services" class="uppercase tracking-wide">Servizi</a></li>
+          <li><a href="#portfolio" class="uppercase tracking-wide">Portfolio</a></li>
+          <li><a href="#contact" class="uppercase tracking-wide">Contatti</a></li>
+          <li><a href="#newsletter" class="uppercase tracking-wide">Newsletter</a></li>
+        </ul>
+      </nav>
+      <!-- Mobile Menu Toggler: visible on mobile -->
+      <button id="mobile-menu-button" class="md:hidden focus:outline-none text-primary">
+        <i class="fas fa-bars fa-2x"></i>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu" class="md:hidden hidden bg-black">
+      <ul class="flex flex-col space-y-4 p-4">
+        <li><a href="#hero" class="uppercase tracking-wide">Home</a></li>
+        <li><a href="#about" class="uppercase tracking-wide">Chi Siamo</a></li>
+        <li><a href="#services" class="uppercase tracking-wide">Servizi</a></li>
+        <li><a href="#portfolio" class="uppercase tracking-wide">Portfolio</a></li>
+        <li><a href="#contact" class="uppercase tracking-wide">Contatti</a></li>
+        <li><a href="#newsletter" class="uppercase tracking-wide">Newsletter</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Hero Section -->
+  <section id="hero" class="hero flex items-center justify-center">
+    <div class="hero-content">
+      <h1 class="animate__animated animate__fadeInDown">Benvenuti su NomeSito</h1>
+      <p class="animate__animated animate__fadeInUp animate__delay-1s">Rivivi il passato con lo stile degli anni '80</p>
+      <a href="#about" class="btn animate__animated animate__fadeInUp animate__delay-2s">Scopri di più</a>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about" class="py-20">
+    <div class="container">
+      <h2 class="section-title text-center">Chi Siamo</h2>
+      <div class="about flex flex-col md:flex-row items-center gap-8">
+        <img src="https://source.unsplash.com/600x400/?retro,office" alt="Il nostro team">
+        <div class="about-text">
+          <p>
+            NomeSito è un portale che celebra la cultura e lo stile degli anni '80. Siamo appassionati di musica, design e tecnologia vintage e trasformiamo questo spirito unico in progetti moderni.
+          </p>
+          <p class="mt-4">
+            Portiamo la nostalgia degli anni '80 nel presente, creando esperienze digitali che catturano l'immaginazione.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Services Section -->
+  <section id="services" class="py-20 bg-gray-900">
+    <div class="container">
+      <h2 class="section-title text-center">I Nostri Servizi</h2>
+      <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="service-card p-6 rounded-lg border-2 border-neon bg-black/75 animate__animated animate__fadeInLeft">
+          <h3 class="text-2xl font-bold mb-2" style="color: var(--primary-color);">Design Retrò</h3>
+          <p class="text-lg">Progetti grafici ispirati agli anni '80, con colori neon e tipografia vintage.</p>
+        </div>
+        <div class="service-card p-6 rounded-lg border-2 border-neon bg-black/75 animate__animated animate__fadeInUp animate__delay-1s">
+          <h3 class="text-2xl font-bold mb-2" style="color: var(--primary-color);">Sviluppo Vintage</h3>
+          <p class="text-lg">Siti web che fondono tecnologia moderna e estetica retrò in perfetta armonia.</p>
+        </div>
+        <div class="service-card p-6 rounded-lg border-2 border-neon bg-black/75 animate__animated animate__fadeInRight animate__delay-2s">
+          <h3 class="text-2xl font-bold mb-2" style="color: var(--primary-color);">Marketing Retro</h3>
+          <p class="text-lg">Strategie che uniscono nostalgia e innovazione per un impatto unico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="py-20">
+    <div class="container">
+      <h2 class="section-title text-center">Portfolio</h2>
+      <div class="portfolio-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="portfolio-item animate__animated animate__zoomIn">
+          <img src="https://source.unsplash.com/600x400/?retro,design" alt="Progetto 1" class="rounded-lg border-4 border-secondary shadow-lg">
+        </div>
+        <div class="portfolio-item animate__animated animate__zoomIn animate__delay-1s">
+          <img src="https://source.unsplash.com/600x400/?vintage,website" alt="Progetto 2" class="rounded-lg border-4 border-secondary shadow-lg">
+        </div>
+        <div class="portfolio-item animate__animated animate__zoomIn animate__delay-2s">
+          <img src="https://source.unsplash.com/600x400/?neon,retro" alt="Progetto 3" class="rounded-lg border-4 border-secondary shadow-lg">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-gray-800">
+    <div class="container text-center">
+      <h2 class="section-title">Contatti</h2>
+      <div class="contact-info text-xl">
+        <p><i class="fas fa-map-marker-alt"></i> Via Nostalgia, 1980 - RetroCity</p>
+        <p class="mt-4"><i class="fas fa-phone"></i> +39 0123 456789</p>
+        <p class="mt-4"><i class="fas fa-envelope"></i> info@nomesito.com</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="py-20 bg-black">
+    <div class="container text-center">
+      <h2 class="section-title" style="color: var(--primary-color);">Newsletter</h2>
+      <p class="text-xl mb-8">Iscriviti per ricevere aggiornamenti e offerte in perfetto stile anni '80!</p>
+      <div class="newsletter-form">
+        <input type="email" class="border border-primary rounded-l px-4 py-2 inline-block w-full max-w-xs" placeholder="nome@esempio.com" required>
+        <button class="bg-primary text-black px-4 py-2 rounded-r inline-block">Iscriviti</button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section -->
+  <footer class="footer bg-black">
+    <div class="container text-center">
+      <p class="text-lg">&copy; 2025 NomeSito - Tutti i diritti riservati</p>
+      <p class="mt-4 text-lg">
+        Seguici:
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Script per mobile menu toggle -->
+  <script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
