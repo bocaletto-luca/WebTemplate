@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizzeria Blu - Sapore Autentico e Moderno</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome per le icone -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- Google Fonts: utilizziamo Nunito ed Open Sans per un look fresco -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Impostazioni di base */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #FFFFFF;
+      color: #2c3e50;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    
+    /* Navbar: trasparente all'inizio, poi opaca con sfondo bianco */
+    .navbar {
+      background-color: transparent;
+      padding: 1rem 0;
+      transition: background-color 0.3s ease;
+    }
+    .navbar.scrolled {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .navbar-brand {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #2c3e50 !important;
+    }
+    .navbar-nav .nav-link {
+      color: #2c3e50 !important;
+      margin: 0 0.5rem;
+      font-weight: 600;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #3498db !important;
+    }
+    
+    /* Hero Section: immagine a schermo intero con overlay in gradiente */
+    .hero {
+      position: relative;
+      background: url('https://source.unsplash.com/1600x900/?pizzeria,blue') no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 5%;
+      color: #fff;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(44, 62, 80,0.85) 30%, rgba(52, 152, 219,0.6) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 20px;
+    }
+    .hero h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    .btn-custom {
+      background-color: #3498db;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+    
+    /* Titoli di sezione */
+    .section-title {
+      text-align: center;
+      margin: 60px 0 30px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+    
+    /* Specialità del Giorno */
+    #special {
+      background-color: #ecf0f1;
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 3px solid #3498db;
+      border-bottom: 3px solid #3498db;
+    }
+    #special p {
+      font-size: 1.2rem;
+      color: #2c3e50;
+    }
+    
+    /* Menù Section: card in griglia */
+    #menu .menu-item {
+      background-color: #f9f9f9;
+      border: none;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #menu .menu-item:hover {
+      transform: translateY(-5px);
+    }
+    #menu .menu-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    #menu .menu-item .card-body {
+      text-align: center;
+      padding: 15px;
+    }
+    #menu .menu-item h5 {
+      color: #3498db;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    /* Il Ristorante / Chi Siamo */
+    #about {
+      padding: 60px 20px;
+      background-color: #ffffff;
+    }
+    #about .about-img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    /* Prenotazione e Ordine: form in card e layout a due colonne su desktop */
+    #reservation, #order {
+      padding: 60px 20px;
+      background-color: #f1f1f1;
+    }
+    .card-form {
+      background-color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    
+    /* Testimonianze */
+    #testimonials {
+      padding: 60px 20px;
+      background-color: #ecf0f1;
+    }
+    .testimonial {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-style: italic;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .testimonial cite {
+      display: block;
+      margin-top: 10px;
+      color: #7f8c8d;
+    }
+    
+    /* Contatti */
+    #contact {
+      padding: 60px 20px;
+      background-color: #ffffff;
+    }
+    #contact p {
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+    #contact i {
+      color: #3498db;
+      margin-right: 8px;
+    }
+    
+    /* Newsletter */
+    #newsletter {
+      padding: 60px 20px;
+      background-color: #f1f1f1;
+      text-align: center;
+    }
+    #newsletter .form-control {
+      max-width: 400px;
+      display: inline-block;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: #2c3e50;
+      color: #bdc3c7;
+      text-align: center;
+      padding: 20px;
+    }
+    .footer a {
+      color: #3498db;
+      margin: 0 10px;
+      font-size: 1.3rem;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        justify-content: center;
+        padding-left: 0;
+        text-align: center;
+      }
+      .hero h1 {
+        font-size: 3rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Pizzeria Blu</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBlue">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarBlue">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu">Menù</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Il Ristorante</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reservation">Prenota Tavolo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#order">Ordina Online</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonianze</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+          <li class="nav-item"><a class="nav-link" href="#newsletter">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <header id="hero" class="hero">
+    <div class="hero-content">
+      <h1>Pizzeria Blu</h1>
+      <p>Sapore Autentico, Ambiente Fresco</p>
+      <a href="#menu" class="btn btn-custom">Scopri il Menù</a>
+    </div>
+  </header>
+  
+  <!-- Specialità del Giorno -->
+  <section id="special" class="text-center">
+    <h2 class="section-title">Specialità del Giorno</h2>
+    <p>Ogni giorno creazioni esclusive per soddisfare ogni palato – scopri le proposte del nostro chef!</p>
+  </section>
+  
+  <!-- Menù Section -->
+  <section id="menu" class="container">
+    <h2 class="section-title">Il Nostro Menù</h2>
+    <div class="row">
+      <!-- Pizza Margherita -->
+      <div class="col-md-4">
+        <div class="card menu-item">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza,margherita" alt="Pizza Margherita">
+          <div class="card-body">
+            <h5 class="card-title">Margherita</h5>
+            <p class="card-text">Pomodoro, mozzarella e basilico fresco.</p>
+            <p class="fw-bold">€7,00</p>
+          </div>
+        </div>
+      </div>
+      <!-- Pizza Diavola -->
+      <div class="col-md-4">
+        <div class="card menu-item">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza,diavola" alt="Pizza Diavola">
+          <div class="card-body">
+            <h5 class="card-title">Diavola</h5>
+            <p class="card-text">Pomodoro, mozzarella e salame piccante.</p>
+            <p class="fw-bold">€8,00</p>
+          </div>
+        </div>
+      </div>
+      <!-- Pizza Quattro Formaggi -->
+      <div class="col-md-4">
+        <div class="card menu-item">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza,quattro,formaggi" alt="Pizza Quattro Formaggi">
+          <div class="card-body">
+            <h5 class="card-title">Quattro Formaggi</h5>
+            <p class="card-text">Mozzarella, gorgonzola, parmigiano e fontina.</p>
+            <p class="fw-bold">€9,00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Il Ristorante / Chi Siamo -->
+  <section id="about" class="container">
+    <h2 class="section-title">Il Ristorante</h2>
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4">
+        <img src="https://source.unsplash.com/featured/600x400/?pizzeria,restaurant,interior" alt="Il nostro ristorante" class="about-img">
+      </div>
+      <div class="col-md-6">
+        <p>
+          Pizzeria Blu unisce tradizione e modernità, offrendo pizze al piatto preparate con ingredienti di qualità in un ambiente elegante e accogliente.
+        </p>
+        <p>
+          La nostra missione è garantire un’esperienza culinaria unica, dove il gusto autentico si sposa con un design all'avanguardia.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Prenota Tavolo e Ordina Online -->
+  <section id="reservation" class="container">
+    <h2 class="section-title text-center">Prenota un Tavolo</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card card-form p-4">
+          <form>
+            <div class="mb-3">
+              <label for="resName" class="form-label">Il tuo nome</label>
+              <input type="text" class="form-control" id="resName" placeholder="Inserisci il tuo nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="resEmail" class="form-label">La tua email</label>
+              <input type="email" class="form-control" id="resEmail" placeholder="nome@esempio.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="resDate" class="form-label">Data</label>
+              <input type="date" class="form-control" id="resDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="resTime" class="form-label">Orario</label>
+              <input type="time" class="form-control" id="resTime" required>
+            </div>
+            <div class="mb-3">
+              <label for="resGuests" class="form-label">Numero di persone</label>
+              <input type="number" class="form-control" id="resGuests" placeholder="Inserisci il numero di persone" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-custom btn-lg">Prenota Ora</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <h2 class="section-title text-center">Ordina Online</h2>
+        <div class="card card-form p-4">
+          <form>
+            <div class="mb-3">
+              <label for="orderName" class="form-label">Il tuo nome</label>
+              <input type="text" class="form-control" id="orderName" placeholder="Inserisci il tuo nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderEmail" class="form-label">La tua email</label>
+              <input type="email" class="form-control" id="orderEmail" placeholder="nome@esempio.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderDetails" class="form-label">Dettagli Ordine</label>
+              <textarea class="form-control" id="orderDetails" rows="4" placeholder="Descrivi il tuo ordine (es. 1 Margherita, 2 Diavola)" required></textarea>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-custom btn-lg">Invia Ordine</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonianze -->
+  <section id="testimonials" class="container">
+    <h2 class="section-title text-center">Testimonianze</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="testimonial">
+          <p>"Un’esperienza straordinaria: la qualità delle pizze e l'attenzione del personale sono impareggiabili."</p>
+          <cite>— Lucia D.</cite>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial">
+          <p>"Pizzeria Blu ha rivoluzionato il modo di gustare la pizza al piatto. Ambiente moderno e sapori autentici."</p>
+          <cite>— Andrea G.</cite>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial">
+          <p>"Sempre innovativi pur rimanendo fedeli alla tradizione. Un piacevole mix di gusto e stile."</p>
+          <cite>— Marco F.</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contatti -->
+  <section id="contact" class="container">
+    <h2 class="section-title text-center">Contatti</h2>
+    <div class="row text-center">
+      <div class="col-md-4">
+        <p><i class="fas fa-map-marker-alt"></i> Via Marina, 10 - Genova</p>
+      </div>
+      <div class="col-md-4">
+        <p><i class="fas fa-phone"></i> +39 010 1234567</p>
+      </div>
+      <div class="col-md-4">
+        <p><i class="fas fa-envelope"></i> info@pizzeriablu.it</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter -->
+  <section id="newsletter" class="container">
+    <h2 class="section-title text-center">Iscriviti alla Newsletter</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card p-4" style="background-color: #ecf0f1; border: none;">
+          <form>
+            <div class="mb-3">
+              <label for="newsletterEmail" class="form-label">La tua email</label>
+              <input type="email" class="form-control" id="newsletterEmail" placeholder="nome@esempio.com" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-custom">Iscriviti</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Pizzeria Blu - Sapore Autentico e Moderno</p>
+    <p>
+      Seguici:
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </p>
+  </footer>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Effetto navbar: cambia background al scroll
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 50){
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

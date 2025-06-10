@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizzeria Urban Complete | Pizza e Passione</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome per le icone -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Base e tipografia */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    
+    /* Navbar: trasparente fino allo scroll */
+    .navbar {
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+    }
+    .navbar.scrolled {
+      background-color: #1f1f1f;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    .navbar-nav .nav-link {
+      color: #e0e0e0;
+      margin-right: 1rem;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #d32f2f;
+    }
+    
+    /* Hero Section a schermo intero con overlay */
+    .hero {
+      position: relative;
+      background: url('https://source.unsplash.com/1600x900/?pizza,night') no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 20px;
+    }
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    .hero .btn {
+      background-color: #d32f2f;
+      border: none;
+      font-size: 1.2rem;
+    }
+    
+    /* Titoli delle sezioni */
+    .section-title {
+      text-align: center;
+      margin: 60px 0 30px;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #d32f2f;
+    }
+    
+    /* Specialità del Giorno */
+    .special-section {
+      padding: 40px 20px;
+      background-color: #1f1f1f;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+      text-align: center;
+    }
+    .special-section p {
+      font-size: 1.2rem;
+    }
+    
+    /* Menù: card in una griglia */
+    .menu-card {
+      background-color: #1e1e1e;
+      border: none;
+      margin-bottom: 30px;
+    }
+    .menu-card img {
+      height: 220px;
+      object-fit: cover;
+    }
+    .menu-card .card-body {
+      text-align: center;
+    }
+    .menu-card h5 {
+      font-weight: 700;
+    }
+    
+    /* Chi Siamo: immagine e testo */
+    #about {
+      padding: 40px 20px;
+    }
+    #about img {
+      border-radius: 8px;
+      max-width: 100%;
+    }
+    
+    /* Orari di Apertura */
+    #hours {
+      padding: 40px 20px;
+      background-color: #1f1f1f;
+    }
+    .hour-box {
+      background-color: #121212;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    #hours h3 {
+      color: #d32f2f;
+    }
+    
+    /* Prenota Tavolo e Ordina Online: form in card */
+    #reservation, #order {
+      padding: 40px 20px;
+      background-color: #1e1e1e;
+    }
+    .form-control, .btn {
+      border-radius: 0;
+    }
+    
+    /* Testimonianze */
+    #testimonials {
+      padding: 40px 20px;
+      background-color: #1f1f1f;
+    }
+    .testimonial {
+      background-color: #121212;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .testimonial cite {
+      display: block;
+      margin-top: 10px;
+      color: #888;
+    }
+    
+    /* Contatti */
+    #contact {
+      padding: 40px 20px;
+    }
+    #contact i {
+      color: #d32f2f;
+      margin-right: 8px;
+    }
+    
+    /* Newsletter */
+    #newsletter {
+      padding: 40px 20px;
+      background-color: #1e1e1e;
+      text-align: center;
+    }
+    #newsletter .form-control {
+      max-width: 400px;
+      display: inline-block;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: #000;
+      color: #888;
+      padding: 20px;
+      text-align: center;
+    }
+    .footer a {
+      color: #d32f2f;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .navbar-brand {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar - fixed in alto -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Urban Pizza Complete</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#special">Specialità</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu">Menù</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Chi Siamo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#hours">Orari</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reservation">Prenota Tavolo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#order">Ordina Online</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonianze</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+          <li class="nav-item"><a class="nav-link" href="#newsletter">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <header id="hero" class="hero">
+    <div class="hero-content">
+      <h1>Pizzeria Urban Complete</h1>
+      <p>Pizza, Passione & Innovazione</p>
+      <a href="#menu" class="btn btn-danger btn-lg">Scopri il Menù</a>
+    </div>
+  </header>
+  
+  <!-- Specialità del Giorno -->
+  <section id="special" class="special-section">
+    <h2 class="section-title">Specialità del Giorno</h2>
+    <p>Lasciati sorprendere ogni giorno da creazioni esclusive: pizze stagionali, offerte speciali e abbinamenti innovativi.</p>
+  </section>
+  
+  <!-- Menù Section -->
+  <section id="menu" class="container">
+    <h2 class="section-title">Il Nostro Menù</h2>
+    <div class="row">
+      <!-- Pizza Margherita -->
+      <div class="col-md-4">
+        <div class="card menu-card">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza,margherita" class="card-img-top" alt="Pizza Margherita">
+          <div class="card-body">
+            <h5 class="card-title">Margherita</h5>
+            <p class="card-text">Pomodoro, mozzarella, basilico fresco.</p>
+            <p class="fw-bold">€5,00</p>
+          </div>
+        </div>
+      </div>
+      <!-- Pizza Diavola -->
+      <div class="col-md-4">
+        <div class="card menu-card">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza,diavola" class="card-img-top" alt="Pizza Diavola">
+          <div class="card-body">
+            <h5 class="card-title">Diavola</h5>
+            <p class="card-text">Pomodoro, mozzarella e salame piccante.</p>
+            <p class="fw-bold">€6,00</p>
+          </div>
+        </div>
+      </div>
+      <!-- Pizza Vegetariana -->
+      <div class="col-md-4">
+        <div class="card menu-card">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza,vegetarian" class="card-img-top" alt="Pizza Vegetariana">
+          <div class="card-body">
+            <h5 class="card-title">Vegetariana</h5>
+            <p class="card-text">Verdure grigliate, mozzarella e pomodoro.</p>
+            <p class="fw-bold">€6,50</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Chi Siamo Section -->
+  <section id="about" class="container">
+    <h2 class="section-title">Chi Siamo</h2>
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4">
+        <img src="https://source.unsplash.com/featured/600x400/?pizzeria,chef" alt="Il nostro team" class="img-fluid rounded">
+      </div>
+      <div class="col-md-6">
+        <p>
+          Da oltre 20 anni, <strong>Pizzeria Urban Complete</strong> unisce tradizione e innovazione. Prepariamo pizze al taglio con ingredienti genuini e ricette originali, per offrire un’esperienza culinaria unica.
+        </p>
+        <p>
+          Siamo costantemente alla ricerca di nuove idee e promozioni per stupire il palato dei nostri clienti.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Orari di Apertura Section -->
+  <section id="hours" class="container">
+    <h2 class="section-title text-center">Orari di Apertura</h2>
+    <div class="row text-center">
+      <div class="col-md-4 hour-box">
+        <h3>Lunedì - Venerdì</h3>
+        <p>11:00 - 15:00<br>19:00 - 23:00</p>
+      </div>
+      <div class="col-md-4 hour-box">
+        <h3>Sabato</h3>
+        <p>11:00 - 15:00<br>19:00 - 24:00</p>
+      </div>
+      <div class="col-md-4 hour-box">
+        <h3>Domenica</h3>
+        <p>Chiuso</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Prenota Tavolo Section -->
+  <section id="reservation" class="container">
+    <h2 class="section-title text-center">Prenota un Tavolo</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <form class="p-4" style="background-color: #1e1e1e; border-radius: 8px;">
+          <div class="mb-3">
+            <label for="resName" class="form-label">Il tuo nome</label>
+            <input type="text" class="form-control" id="resName" placeholder="Inserisci il tuo nome" required>
+          </div>
+          <div class="mb-3">
+            <label for="resEmail" class="form-label">La tua email</label>
+            <input type="email" class="form-control" id="resEmail" placeholder="nome@esempio.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="resDate" class="form-label">Data</label>
+            <input type="date" class="form-control" id="resDate" required>
+          </div>
+          <div class="mb-3">
+            <label for="resTime" class="form-label">Orario</label>
+            <input type="time" class="form-control" id="resTime" required>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-danger btn-lg">Prenota Ora</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Ordina Online Section -->
+  <section id="order" class="container">
+    <h2 class="section-title text-center">Ordina Online</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <form class="p-4" style="background-color: #1e1e1e; border-radius: 8px;">
+          <div class="mb-3">
+            <label for="orderName" class="form-label">Il tuo nome</label>
+            <input type="text" class="form-control" id="orderName" placeholder="Inserisci il tuo nome" required>
+          </div>
+          <div class="mb-3">
+            <label for="orderEmail" class="form-label">La tua email</label>
+            <input type="email" class="form-control" id="orderEmail" placeholder="nome@esempio.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="orderDetails" class="form-label">Dettagli Ordine</label>
+            <textarea class="form-control" id="orderDetails" rows="4" placeholder="Descrivi il tuo ordine (es. 2 Margherite, 1 Diavola)" required></textarea>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-danger btn-lg">Invia Ordine</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonianze Section -->
+  <section id="testimonials" class="container">
+    <h2 class="section-title text-center">Cosa Dicono di Noi</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="testimonial">
+          <p>"La miglior pizza al taglio che abbia mai assaggiato! Servizio impeccabile e ambiente accogliente."</p>
+          <cite>— Laura M.</cite>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial">
+          <p>"Innovativa e sempre fresca, Urban Complete è il punto di riferimento per gli amanti della pizza."</p>
+          <cite>— Giovanni R.</cite>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial">
+          <p>"Un connubio perfetto tra tradizione e modernità. Consiglio vivamente di provare le loro specialità!"</p>
+          <cite>— Sofia P.</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contatti Section -->
+  <section id="contact" class="container">
+    <h2 class="section-title text-center">Contattaci</h2>
+    <div class="row text-center">
+      <div class="col-md-4">
+        <p><i class="fas fa-map-marker-alt"></i> Via Pizza, 101 - Roma</p>
+      </div>
+      <div class="col-md-4">
+        <p><i class="fas fa-phone"></i> +39 06 1234567</p>
+      </div>
+      <div class="col-md-4">
+        <p><i class="fas fa-envelope"></i> info@urbanpizza.com</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="container">
+    <h2 class="section-title text-center">Iscriviti alla Newsletter</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form class="p-4" style="background-color: #1e1e1e; border-radius: 8px;">
+          <div class="mb-3">
+            <label for="newsletterEmail" class="form-label">La tua email</label>
+            <input type="email" class="form-control" id="newsletterEmail" placeholder="nome@esempio.com" required>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-danger">Iscriviti</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Pizzeria Urban Complete | Tutti i diritti riservati</p>
+    <p>
+      Seguici sui social:
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    </p>
+  </footer>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Effetto scroll della navbar
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 50){
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

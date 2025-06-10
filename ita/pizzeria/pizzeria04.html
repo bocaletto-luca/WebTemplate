@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizzeria Exclusive | Tradizione & Innovazione</title>
+
+  <!-- Bootstrap & FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    /* Header a schermo intero */
+    .hero {
+      background: url('https://source.unsplash.com/1600x900/?pizza,restaurant') no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      font-family: 'Playfair Display', serif;
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    .hero h1, .hero p {
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-size: 4rem;
+    }
+    .hero .cta {
+      margin-top: 20px;
+    }
+    
+    /* Specialità del giorno */
+    .special-section {
+      background-color: #fff;
+      padding: 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Menù */
+    .menu-grid img {
+      object-fit: cover;
+      height: 200px;
+      width: 100%;
+    }
+    
+    /* Sezione eventi */
+    .event-box {
+      background-color: #d32f2f;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    /* Prenotazione tavolo */
+    #reservation {
+      background-color: white;
+      padding: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header a schermo intero -->
+  <header class="hero">
+    <h1>Pizzeria Exclusive</h1>
+    <p>Tradizione & Innovazione nel gusto</p>
+    <a href="#menu" class="btn btn-danger btn-lg cta">Scopri il Menù</a>
+  </header>
+
+  <!-- Specialità del giorno -->
+  <section class="special-section text-center mt-5">
+    <h2 class="mb-4">🍕 Specialità del Giorno</h2>
+    <p class="lead">Ogni giorno nuove pizze stagionali e offerte speciali. Vieni a scoprirle!</p>
+  </section>
+
+  <!-- Menù -->
+  <section id="menu" class="container mt-5">
+    <h2 class="text-center mb-4">Il Nostro Menù</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <img src="https://source.unsplash.com/featured/400x300/?pizza,margherita" class="menu-grid">
+        <h4>Margherita</h4>
+        <p>Pomodoro, mozzarella, basilico fresco. <strong>€5,00</strong></p>
+      </div>
+      <div class="col-md-4">
+        <img src="https://source.unsplash.com/featured/400x300/?pizza,diavola" class="menu-grid">
+        <h4>Diavola</h4>
+        <p>Pomodoro, mozzarella, salame piccante. <strong>€6,00</strong></p>
+      </div>
+      <div class="col-md-4">
+        <img src="https://source.unsplash.com/featured/400x300/?pizza,vegetarian" class="menu-grid">
+        <h4>Vegetariana</h4>
+        <p>Verdure grigliate, mozzarella, pomodoro. <strong>€6,50</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Eventi & Promozioni -->
+  <section id="events" class="container mt-5">
+    <h2 class="text-center mb-4">🎉 Eventi & Promozioni</h2>
+    <div class="event-box">
+      <h3>🎸 Serata a tema: Live Music & Pizza</h3>
+      <p>Unisciti a noi venerdì sera per una serata speciale con musica dal vivo e degustazione di nuove pizze!</p>
+    </div>
+  </section>
+
+  <!-- Prenotazione tavolo -->
+  <section id="reservation" class="container mt-5">
+    <h2 class="text-center mb-4">Prenota un Tavolo</h2>
+    <form>
+      <input type="text" class="form-control mb-3" placeholder="Il tuo nome" required>
+      <input type="email" class="form-control mb-3" placeholder="La tua email" required>
+      <input type="date" class="form-control mb-3" required>
+      <button type="submit" class="btn btn-success btn-lg w-100">Prenota Ora</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer mt-5">
+    <p>© 2025 Pizzeria Exclusive | Tutti i diritti riservati</p>
+    <p>Seguici: <i class="fab fa-instagram"></i> <i class="fab fa-facebook"></i> <i class="fab fa-twitter"></i></p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

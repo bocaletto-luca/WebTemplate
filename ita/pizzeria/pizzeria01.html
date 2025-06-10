@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizzeria al Taglio | Il Gusto Perfetto Ti Aspetta</title>
+  
+  <!-- Bootstrap CSS & FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Font e stili di base */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background-color: #d32f2f;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background: url('https://source.unsplash.com/1600x900/?pizzeria') no-repeat center center;
+      background-size: cover;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero h1 {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      font-size: 3.5rem;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+      margin: 0;
+    }
+    .hero p {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      font-size: 1.5rem;
+      margin-top: 10px;
+    }
+    
+    /* Titoli sezioni */
+    .section-title {
+      margin: 60px 0 30px;
+      text-align: center;
+      font-weight: 700;
+      color: #d32f2f;
+    }
+    
+    /* Menù Cards */
+    .card img {
+      object-fit: cover;
+      height: 220px;
+    }
+    .card-title {
+      font-weight: bold;
+    }
+    
+    /* Sezione Ordina Online */
+    #order {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 30px;
+      margin-bottom: 60px;
+    }
+    #order .btn {
+      background-color: #d32f2f;
+      border: none;
+    }
+    
+    /* Sezione Testimonianze */
+    .testimonials {
+      background-color: #eee;
+      padding: 60px 20px;
+    }
+    .testimonial {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .testimonial cite {
+      display: block;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      color: #888;
+    }
+    
+    /* Sezione Contatti */
+    #contact p {
+      font-size: 1.1rem;
+      margin: 5px 0;
+    }
+    
+    /* Sezione Orari di Apertura */
+    #hours {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 60px;
+    }
+    #hours h3 {
+      color: #d32f2f;
+      font-weight: bold;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: #d32f2f;
+      color: #fff;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.9rem;
+    }
+    .footer a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.2rem;
+    }
+    
+    /* Spaziatura per tutte le sezioni */
+    section {
+      padding: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">🍕 Pizzeria al Taglio</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+       <ul class="navbar-nav ms-auto">
+         <li class="nav-item"><a class="nav-link" href="#menu">Menù</a></li>
+         <li class="nav-item"><a class="nav-link" href="#about">Chi Siamo</a></li>
+         <li class="nav-item"><a class="nav-link" href="#hours">Orari</a></li>
+         <li class="nav-item"><a class="nav-link" href="#order">Ordina Online</a></li>
+         <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+       </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div>
+      <h1>Il Gusto Perfetto Ti Aspetta</h1>
+      <p>Scopri la tradizione in ogni fetta</p>
+    </div>
+  </section>
+  
+  <!-- Menù Section -->
+  <section id="menu" class="container">
+    <h2 class="section-title">Il Nostro Menù</h2>
+    <div class="row">
+      <!-- Pizza Margherita -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza-margherita" class="card-img-top" alt="Pizza Margherita">
+          <div class="card-body">
+            <h5 class="card-title">Margherita</h5>
+            <p class="card-text">Pomodoro, mozzarella, basilico fresco.</p>
+            <p class="fw-bold">€5,00</p>
+          </div>
+        </div>
+      </div>
+      <!-- Pizza Diavola -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza-diavola" class="card-img-top" alt="Pizza Diavola">
+          <div class="card-body">
+            <h5 class="card-title">Diavola</h5>
+            <p class="card-text">Pomodoro, mozzarella e salame piccante.</p>
+            <p class="fw-bold">€6,00</p>
+          </div>
+        </div>
+      </div>
+      <!-- Pizza Vegetariana -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza-vegetarian" class="card-img-top" alt="Pizza Vegetariana">
+          <div class="card-body">
+            <h5 class="card-title">Vegetariana</h5>
+            <p class="card-text">Verdure grigliate, mozzarella e pomodoro.</p>
+            <p class="fw-bold">€6,50</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Chi Siamo Section -->
+  <section id="about" class="container">
+    <h2 class="section-title">Chi Siamo</h2>
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <img src="https://source.unsplash.com/featured/600x400/?pizzeria,restaurant" class="img-fluid rounded" alt="La nostra pizzeria">
+      </div>
+      <div class="col-md-6">
+        <p>
+          Benvenuti a <strong>Pizzeria al Taglio</strong>: qui la tradizione si sposa con la passione per la qualità. Usiamo solo ingredienti freschi e selezionati per offrirti pizze irresistibili, preparate con cura e maestria.
+          Il nostro obiettivo è rendere ogni visita un’esperienza unica, fatta di sapori autentici e atmosfera conviviale. Vieni a trovarci e scopri il vero gusto della pizza!
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Orari di Apertura Section -->
+  <section id="hours" class="container">
+    <h2 class="section-title">Orari di Apertura</h2>
+    <div class="row text-center">
+      <div class="col-md-4">
+        <h3>Lunedì - Venerdì</h3>
+        <p>11:00 - 15:00<br>19:00 - 23:00</p>
+      </div>
+      <div class="col-md-4">
+        <h3>Sabato</h3>
+        <p>11:00 - 15:00<br>19:00 - 24:00</p>
+      </div>
+      <div class="col-md-4">
+        <h3>Domenica</h3>
+        <p>Chiuso</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Ordina Online Section -->
+  <section id="order" class="container">
+    <h2 class="section-title text-center">Ordina Online</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card p-4">
+          <form>
+            <div class="mb-3">
+              <label for="orderName" class="form-label">Il tuo nome</label>
+              <input type="text" class="form-control" id="orderName" placeholder="Inserisci il tuo nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderEmail" class="form-label">La tua email</label>
+              <input type="email" class="form-control" id="orderEmail" placeholder="nome@esempio.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderDetails" class="form-label">Dettagli Ordine</label>
+              <textarea class="form-control" id="orderDetails" rows="4" placeholder="Descrivi il tuo ordine (es. 2 Margherite, 1 Diavola)" required></textarea>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-danger btn-lg">Invia Ordine</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonianze Section -->
+  <section class="testimonials">
+    <div class="container text-center">
+      <h2 class="section-title">Cosa Dicono di Noi</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <blockquote class="testimonial">
+            "Pizza incredibile! Croccante, gustosa e sempre fresca."
+            <cite>— Marco R.</cite>
+          </blockquote>
+        </div>
+        <div class="col-md-4">
+          <blockquote class="testimonial">
+            "Il servizio è impeccabile e il sapore autentico. Consigliatissima!"
+            <cite>— Lucia M.</cite>
+          </blockquote>
+        </div>
+        <div class="col-md-4">
+          <blockquote class="testimonial">
+            "Un'esperienza gastronomica unica! Tornerò sicuramente."
+            <cite>— Andrea P.</cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contatti Section -->
+  <section id="contact" class="container">
+    <h2 class="section-title text-center">Contattaci</h2>
+    <div class="row text-center">
+      <div class="col-md-4">
+        <p><i class="fas fa-map-marker-alt"></i> Via Roma, 123 - Milano</p>
+      </div>
+      <div class="col-md-4">
+        <p><i class="fas fa-phone"></i> +39 012 3456789</p>
+      </div>
+      <div class="col-md-4">
+        <p><i class="fas fa-envelope"></i> info@pizzeriataglio.it</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Pizzeria al Taglio – Tutti i diritti riservati</p>
+      <p>
+        Seguici sui social:
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

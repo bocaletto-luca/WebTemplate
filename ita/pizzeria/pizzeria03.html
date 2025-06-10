@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizzeria Sidebar | Gusti Originali</title>
+  
+  <!-- Bootstrap CSS & FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Impostazioni di base */
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: #fffaf0; /* tonalità off-white calda */
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    /* Sidebar fissa per desktop */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 240px;
+      background-color: #b22222; /* firebrick */
+      color: #fff;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .sidebar h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .sidebar a {
+      color: #fff;
+      display: block;
+      margin: 10px 0;
+      font-size: 1.1rem;
+      text-decoration: none;
+    }
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+    /* Il contenuto principale ha margine sinistro pari alla larghezza della sidebar */
+    .main-content {
+      margin-left: 240px;
+      padding: 20px;
+    }
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background: url('https://source.unsplash.com/1600x900/?pizza,taglio') no-repeat center center;
+      background-size: cover;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+    }
+    .hero h1 {
+      position: relative;
+      color: #fff;
+      font-size: 3rem;
+      z-index: 2;
+      text-align: center;
+    }
+    /* Titoli per le sezioni */
+    .section-title {
+      color: #b22222;
+      margin: 40px 0 20px;
+      font-size: 2rem;
+      font-weight: 700;
+      border-bottom: 2px solid #b22222;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+    /* Stile per le card del Menù */
+    .menu-card img {
+      object-fit: cover;
+      height: 200px;
+    }
+    /* Footer */
+    .footer {
+      background-color: #b22222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+    .footer a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    /* Responsive: su dispositivi minori di 768px, la sidebar diventa in cima */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Sidebar Navigation (Fissa su desktop) -->
+  <div class="sidebar">
+    <h2>Gusti Originali</h2>
+    <a href="#hero"><i class="fas fa-home"></i> Home</a>
+    <a href="#menu"><i class="fas fa-utensils"></i> Menù</a>
+    <a href="#about"><i class="fas fa-info-circle"></i> Chi Siamo</a>
+    <a href="#hours"><i class="fas fa-clock"></i> Orari</a>
+    <a href="#order"><i class="fas fa-shopping-cart"></i> Ordina Online</a>
+    <a href="#contact"><i class="fas fa-address-book"></i> Contatti</a>
+  </div>
+  
+  <!-- Main Content Area -->
+  <div class="main-content">
+    
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <h1>Il Gusto Autentico, a Portata di Mano</h1>
+    </section>
+    
+    <!-- Menù Section -->
+    <section id="menu" class="container">
+      <h2 class="section-title">Il Nostro Menù</h2>
+      <div class="row">
+        <!-- Pizza Margherita -->
+        <div class="col-md-4 mb-4">
+          <div class="card menu-card">
+            <img src="https://source.unsplash.com/featured/400x300/?pizza,margherita" class="card-img-top" alt="Pizza Margherita">
+            <div class="card-body">
+              <h5 class="card-title">Margherita</h5>
+              <p class="card-text">Pomodoro, mozzarella e basilico fresco.</p>
+              <p class="fw-bold">€5,00</p>
+            </div>
+          </div>
+        </div>
+        <!-- Pizza Diavola -->
+        <div class="col-md-4 mb-4">
+          <div class="card menu-card">
+            <img src="https://source.unsplash.com/featured/400x300/?pizza,diavola" class="card-img-top" alt="Pizza Diavola">
+            <div class="card-body">
+              <h5 class="card-title">Diavola</h5>
+              <p class="card-text">Pomodoro, mozzarella e salame piccante.</p>
+              <p class="fw-bold">€6,00</p>
+            </div>
+          </div>
+        </div>
+        <!-- Pizza Vegetariana -->
+        <div class="col-md-4 mb-4">
+          <div class="card menu-card">
+            <img src="https://source.unsplash.com/featured/400x300/?pizza,vegetarian" class="card-img-top" alt="Pizza Vegetariana">
+            <div class="card-body">
+              <h5 class="card-title">Vegetariana</h5>
+              <p class="card-text">Verdure fresche, mozzarella e pomodoro.</p>
+              <p class="fw-bold">€6,50</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Chi Siamo Section -->
+    <section id="about" class="container">
+      <h2 class="section-title">Chi Siamo</h2>
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <img src="https://source.unsplash.com/featured/600x400/?pizzeria,chef" class="img-fluid rounded" alt="Il Nostro Team">
+        </div>
+        <div class="col-md-6">
+          <p>
+            Da anni "Gusti Originali" rappresenta l'autentica tradizione della pizza al taglio. Prepariamo ogni fetta con cura, utilizzando ingredienti selezionati per offrire un sapore unico che racconta la nostra storia.
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Orari di Apertura Section -->
+    <section id="hours" class="container">
+      <h2 class="section-title">Orari di Apertura</h2>
+      <div class="row text-center">
+        <div class="col-md-4">
+          <h3>Lunedì - Venerdì</h3>
+          <p>11:00 - 15:00<br>19:00 - 23:00</p>
+        </div>
+        <div class="col-md-4">
+          <h3>Sabato</h3>
+          <p>11:00 - 15:00<br>19:00 - 24:00</p>
+        </div>
+        <div class="col-md-4">
+          <h3>Domenica</h3>
+          <p>Chiuso</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Ordina Online Section -->
+    <section id="order" class="container">
+      <h2 class="section-title">Ordina Online</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card p-4">
+            <form>
+              <div class="mb-3">
+                <label for="orderName" class="form-label">Il tuo nome</label>
+                <input type="text" class="form-control" id="orderName" placeholder="Inserisci il tuo nome" required>
+              </div>
+              <div class="mb-3">
+                <label for="orderEmail" class="form-label">La tua email</label>
+                <input type="email" class="form-control" id="orderEmail" placeholder="nome@esempio.com" required>
+              </div>
+              <div class="mb-3">
+                <label for="orderDetails" class="form-label">Dettagli Ordine</label>
+                <textarea class="form-control" id="orderDetails" rows="4" placeholder="Descrivi il tuo ordine (es. 2 Margherite, 1 Diavola)" required></textarea>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-lg" style="background-color: #b22222; color: #fff;">Invia Ordine</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Testimonianze Section -->
+    <section class="testimonials">
+      <div class="container text-center">
+        <h2 class="section-title">Cosa Dicono di Noi</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <blockquote class="testimonial">
+              "La migliore pizza al taglio che abbia mai gustato! Tradizione e innovazione in ogni fetta."
+              <cite>— Marco D.</cite>
+            </blockquote>
+          </div>
+          <div class="col-md-4">
+            <blockquote class="testimonial">
+              "Ingredienti genuini e un sapore unico: l'esperienza perfetta per il palato."
+              <cite>— Elena R.</cite>
+            </blockquote>
+          </div>
+          <div class="col-md-4">
+            <blockquote class="testimonial">
+              "Un connubio di tradizione e passione. Consigliatissimo a chi ama la vera pizza."
+              <cite>— Roberto S.</cite>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Contatti Section -->
+    <section id="contact" class="container">
+      <h2 class="section-title">Contattaci</h2>
+      <div class="row text-center">
+        <div class="col-md-4">
+          <p><i class="fas fa-map-marker-alt"></i> Via del Gusto, 123 - Napoli</p>
+        </div>
+        <div class="col-md-4">
+          <p><i class="fas fa-phone"></i> +39 081 1234567</p>
+        </div>
+        <div class="col-md-4">
+          <p><i class="fas fa-envelope"></i> info@gustioriginali.it</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="container">
+        <p>© 2025 Gusti Originali – Tutti i diritti riservati</p>
+        <p>
+          Seguici:
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </p>
+      </div>
+    </footer>
+    
+  </div>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

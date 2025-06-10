@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizzeria al Piatto - Gusto e Tradizione</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome per icone -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Impostazioni di base */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background-color: #b71c1c;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #fff !important;
+    }
+    .navbar-nav .nav-link {
+      color: #fff;
+      margin: 0 0.5rem;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #ffebee;
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background: url('https://source.unsplash.com/1600x900/?pizzeria,restaurant') no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 15px;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    .hero .btn {
+      background-color: #d32f2f;
+      border: none;
+      font-size: 1.1rem;
+    }
+    
+    /* Sezione Titoli */
+    .section-title {
+      text-align: center;
+      margin: 60px 0 30px;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #b71c1c;
+    }
+    
+    /* Menù: Card per ogni pizza */
+    .menu-item {
+      background-color: #fff;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      transition: transform 0.3s ease;
+    }
+    .menu-item:hover {
+      transform: translateY(-5px);
+    }
+    .menu-item img {
+      height: 220px;
+      object-fit: cover;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    .menu-item .card-body {
+      text-align: center;
+      padding: 15px;
+    }
+    .menu-item h5 {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    /* Il Ristorante / Chi Siamo */
+    #about {
+      padding: 60px 20px;
+      background-color: #fff;
+    }
+    #about img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    /* Prenota Tavolo e Ordina Online: Form in Card */
+    #reservation, #order {
+      padding: 60px 20px;
+      background-color: #f1f1f1;
+    }
+    .form-control, .btn {
+      border-radius: 0;
+    }
+    .card-form {
+      background-color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    /* Testimonianze */
+    #testimonials {
+      padding: 60px 20px;
+      background-color: #e0e0e0;
+    }
+    .testimonial {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .testimonial cite {
+      display: block;
+      font-size: 0.9rem;
+      margin-top: 10px;
+      color: #777;
+    }
+    
+    /* Contatti */
+    #contact {
+      padding: 60px 20px;
+      background-color: #fafafa;
+    }
+    #contact p {
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+    #contact i {
+      color: #b71c1c;
+      margin-right: 8px;
+    }
+    
+    /* Newsletter */
+    #newsletter {
+      padding: 60px 20px;
+      background-color: #f1f1f1;
+      text-align: center;
+    }
+    #newsletter .form-control {
+      max-width: 400px;
+      display: inline-block;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: #b71c1c;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    .footer a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Pizzeria al Piatto</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu">Menù</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Il Ristorante</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reservation">Prenota Tavolo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#order">Ordina Online</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonianze</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+          <li class="nav-item"><a class="nav-link" href="#newsletter">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="hero" class="hero">
+    <div class="hero-content">
+      <h1>Il Gusto Autentico</h1>
+      <p>Benvenuti nella nostra pizzeria al piatto – qualità, tradizione e innovazione in ogni piatto.</p>
+      <a href="#menu" class="btn btn-danger btn-lg">Scopri il Menù</a>
+    </div>
+  </header>
+  
+  <!-- Specialità del Giorno (opzionale) -->
+  <section id="special" class="special-section text-center">
+    <h2 class="section-title">Specialità del Giorno</h2>
+    <p>Ogni giorno nuove proposte per stupire il palato: pizze innovative e abbinamenti esclusivi.</p>
+  </section>
+  
+  <!-- Menù Section -->
+  <section id="menu" class="container">
+    <h2 class="section-title">Il Nostro Menù</h2>
+    <div class="row">
+      <!-- Pizza Margherita -->
+      <div class="col-md-4">
+        <div class="card menu-item">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza,margherita" alt="Pizza Margherita" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Margherita</h5>
+            <p class="card-text">Pomodoro, mozzarella e basilico fresco.</p>
+            <p class="fw-bold">€7,00</p>
+          </div>
+        </div>
+      </div>
+      <!-- Pizza Diavola -->
+      <div class="col-md-4">
+        <div class="card menu-item">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza,diavola" alt="Pizza Diavola" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Diavola</h5>
+            <p class="card-text">Pomodoro, mozzarella e salame piccante.</p>
+            <p class="fw-bold">€8,00</p>
+          </div>
+        </div>
+      </div>
+      <!-- Pizza Quattro Formaggi -->
+      <div class="col-md-4">
+        <div class="card menu-item">
+          <img src="https://source.unsplash.com/featured/400x300/?pizza,quattro,formaggi" alt="Pizza Quattro Formaggi" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Quattro Formaggi</h5>
+            <p class="card-text">Mozzarella, gorgonzola, parmigiano e fontina.</p>
+            <p class="fw-bold">€9,00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Il Ristorante / Chi Siamo Section -->
+  <section id="about" class="container">
+    <h2 class="section-title">Il Ristorante</h2>
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4">
+        <img src="https://source.unsplash.com/featured/600x400/?pizzeria,interior" alt="Il nostro ristorante" class="img-fluid rounded">
+      </div>
+      <div class="col-md-6">
+        <p>
+          La nostra pizzeria al piatto è il luogo ideale per chi cerca qualità, gusto e un’atmosfera raffinata. Da sempre impegnati a coniugare tradizione e innovazione, ogni piatto è preparato con ingredienti selezionati per garantire un’esperienza culinaria unica.
+        </p>
+        <p>
+          Vieni a trovarci per assaporare la vera pizza italiana, servita con eleganza e passione.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Prenota Tavolo Section -->
+  <section id="reservation" class="container">
+    <h2 class="section-title text-center">Prenota un Tavolo</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card card-form p-4">
+          <form>
+            <div class="mb-3">
+              <label for="resName" class="form-label">Il tuo nome</label>
+              <input type="text" class="form-control" id="resName" placeholder="Inserisci il tuo nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="resEmail" class="form-label">La tua email</label>
+              <input type="email" class="form-control" id="resEmail" placeholder="nome@esempio.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="resDate" class="form-label">Data</label>
+              <input type="date" class="form-control" id="resDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="resTime" class="form-label">Orario</label>
+              <input type="time" class="form-control" id="resTime" required>
+            </div>
+            <div class="mb-3">
+              <label for="resGuests" class="form-label">Numero di persone</label>
+              <input type="number" class="form-control" id="resGuests" placeholder="Inserisci il numero di persone" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-danger btn-lg">Prenota Ora</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Ordina Online Section -->
+  <section id="order" class="container">
+    <h2 class="section-title text-center">Ordina Online</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card card-form p-4">
+          <form>
+            <div class="mb-3">
+              <label for="orderName" class="form-label">Il tuo nome</label>
+              <input type="text" class="form-control" id="orderName" placeholder="Inserisci il tuo nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderEmail" class="form-label">La tua email</label>
+              <input type="email" class="form-control" id="orderEmail" placeholder="nome@esempio.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderDetails" class="form-label">Dettagli Ordine</label>
+              <textarea class="form-control" id="orderDetails" rows="4" placeholder="Descrivi il tuo ordine (es. 1 Margherita, 2 Diavola)" required></textarea>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-danger btn-lg">Invia Ordine</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonianze Section -->
+  <section id="testimonials" class="container">
+    <h2 class="section-title text-center">Testimonianze</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="testimonial">
+          <p>"Il servizio impeccabile e la qualità delle pizze sono ineguagliabili. Un'esperienza da ripetere!"</p>
+          <cite>— Martina L.</cite>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial">
+          <p>"Ogni piatto racconta la passione per la tradizione italiana, servita in un ambiente elegante."</p>
+          <cite>— Carlo B.</cite>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial">
+          <p>"Un ristorante che sa emozionare il palato. La migliore pizzeria al piatto della città!"</p>
+          <cite>— Giulia R.</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contatti Section -->
+  <section id="contact" class="container">
+    <h2 class="section-title text-center">Contatti</h2>
+    <div class="row text-center">
+      <div class="col-md-4">
+        <p><i class="fas fa-map-marker-alt"></i> Via delle Pizze, 20 - Milano</p>
+      </div>
+      <div class="col-md-4">
+        <p><i class="fas fa-phone"></i> +39 02 12345678</p>
+      </div>
+      <div class="col-md-4">
+        <p><i class="fas fa-envelope"></i> info@pizzeriaalpiatto.it</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="container">
+    <h2 class="section-title text-center">Iscriviti alla Newsletter</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card p-4" style="background-color: #1e1e1e; border: none;">
+          <form>
+            <div class="mb-3">
+              <label for="newsletterEmail" class="form-label">La tua email</label>
+              <input type="email" class="form-control" id="newsletterEmail" placeholder="nome@esempio.com" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-danger">Iscriviti</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Pizzeria al Piatto - Gusto e Tradizione</p>
+    <p>
+      Seguici:
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    </p>
+  </footer>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Navbar Scroll Effect
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 50){
+        navbar.classList.add('scrolled');
+      } else{
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+  
+</body>
+</html>

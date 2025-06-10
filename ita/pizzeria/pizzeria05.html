@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizzeria Urban | Pizza & Lifestyle</title>
+
+  <!-- Bootstrap & FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #1c1c1c;
+      color: white;
+    }
+
+    /* Navbar Trasparente */
+    .navbar {
+      background-color: transparent;
+      transition: 0.3s;
+    }
+    .navbar.scrolled {
+      background-color: #222;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://source.unsplash.com/1600x900/?pizza,restaurant,night') no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero h1, .hero p {
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 600;
+    }
+    .hero p {
+      font-size: 1.5rem;
+    }
+
+    /* Tab Menù */
+    .menu-section {
+      background-color: #2e2e2e;
+      padding: 40px;
+    }
+    .nav-tabs .nav-link {
+      color: white;
+    }
+    .nav-tabs .nav-link.active {
+      background-color: #d32f2f;
+      color: white;
+    }
+
+    /* Componi la tua pizza */
+    .custom-pizza {
+      background-color: #222;
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* Testimonianze */
+    .testimonials {
+      background-color: #333;
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background-color: #444;
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Urban Pizza</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#menu">Menù</a></li>
+          <li class="nav-item"><a class="nav-link" href="#custom">Componi la tua pizza</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonianze</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <h1>Pizzeria Urban</h1>
+    <p>La pizza che si adatta al tuo stile di vita</p>
+    <a href="#menu" class="btn btn-danger btn-lg mt-4">Scopri il Menù</a>
+  </header>
+
+  <!-- Menù con Tabs -->
+  <section id="menu" class="menu-section">
+    <h2 class="text-center mb-4">🍕 Il Nostro Menù</h2>
+    <ul class="nav nav-tabs justify-content-center">
+      <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#classic">Classiche</a></li>
+      <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#gourmet">Gourmet</a></li>
+      <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#vegan">Vegane</a></li>
+    </ul>
+    <div class="tab-content text-center mt-4">
+      <div class="tab-pane fade show active" id="classic">
+        <p>🍕 Margherita - Pomodoro, mozzarella, basilico (€5,00)</p>
+        <p>🍕 Diavola - Pomodoro, mozzarella, salame piccante (€6,00)</p>
+      </div>
+      <div class="tab-pane fade" id="gourmet">
+        <p>🍕 Tartufo & Formaggi - Mozzarella, tartufo, parmigiano (€9,00)</p>
+        <p>🍕 Pesto & Burrata - Pesto genovese, burrata, pomodorini (€8,50)</p>
+      </div>
+      <div class="tab-pane fade" id="vegan">
+        <p>🍕 Verdure grigliate - Mozzarella veg, zucchine, peperoni (€6,50)</p>
+        <p>🍕 Hummus & Rucola - Hummus, rucola, semi di girasole (€7,00)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Componi la tua pizza -->
+  <section id="custom" class="custom-pizza">
+    <h2>Componi la tua pizza 🍕</h2>
+    <p>Scegli base, ingredienti e personalizza il tuo gusto</p>
+    <button class="btn btn-warning btn-lg mt-3">Personalizza Ora</button>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Pizzeria Urban | Tutti i diritti riservati</p>
+    <p>Seguici: <i class="fab fa-instagram"></i> <i class="fab fa-facebook"></i> <i class="fab fa-twitter"></i></p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
